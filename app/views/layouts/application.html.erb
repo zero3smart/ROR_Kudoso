@@ -1,14 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Kudoso</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
-</html>
+!!!
+%html
+  %head
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %title= content_for?(:title) ? yield(:title) : "Kudoso"
+    %meta{:content => content_for?(:description) ? yield(:description) : "Kudoso", :name => "description"}/
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'vendor/modernizr'
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    %header
+      = render 'layouts/navigation'
+    %main{:role => "main"}
+      = render 'layouts/messages'
+      = yield
