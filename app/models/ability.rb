@@ -6,11 +6,11 @@ class Ability
     user ||= User.new
 
     can :create, User
-
+    can :create, MyTodo
     if user.admin?
       can :manage, :all
     else
-      if user.member.parent?
+      if user.member && user.member.parent?
         can [:read, :update], Family do |family|
           user.try(:family) == family
         end
@@ -27,7 +27,15 @@ class Ability
             false
           end
         end
+        can :manage, MyTodo do |todo|
+            todo.member && user.family && todo.member.family == user.family
+        end
         can :read, TodoTemplate
+      else
+        # Child permissions
+      end
+      can :manage, MyTodo do |todo|
+        todo.try(:member) == user
       end
       cannot :index, Family
     end
@@ -48,7 +56,7 @@ class Ability
     # If you pass :manage it will apply to every action. Other common actions
     # here are :read, :create, :update and :destroy.
     #
-    # The second argument is the resource the user can perform the action on.
+    # The second argument is the resource the user can perform the action on. 
     # If you pass :all it will apply to every resource. Otherwise pass a Ruby
     # class of the resource.
     #
