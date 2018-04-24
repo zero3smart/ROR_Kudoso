@@ -3,13 +3,21 @@ class Member < ActiveRecord::Base
   has_one :user
   has_many :todo_schedules
   has_many :my_todos
+  has_many :primary_devices, class_name: 'Device', foreign_key: 'primary_member_id'
+
+  scope :kids, -> { where('parent IS NULL OR parent = ?', false) }
 
   validates_presence_of :first_name, :username
 
   validates :username, uniqueness: { scope: :family_id }
 
+
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def details
+    self.my_todos.where('due_date >= ?', 1.month.ago).order(:due_date).reverse_order.group_by(&:due_date)
   end
 
   def todos(start_date = Date.today, end_date = Date.today)
