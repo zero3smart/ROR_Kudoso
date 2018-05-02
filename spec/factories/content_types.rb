@@ -1,6 +1,8 @@
+require 'faker'
+
 FactoryGirl.define do
   factory :content_type do
-    name "MyString"
+    name { Faker::Lorem.word }
   end
 
 end
