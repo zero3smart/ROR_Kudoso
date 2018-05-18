@@ -11,6 +11,7 @@
  * file per style scope.
  *
  */
+
 @import 'mixins';
 @import 'jquery.ui.core';
 @import 'jquery.ui.datepicker';
@@ -23,7 +24,6 @@
 @import 'todo_templates';
 @import 'devices';
 @import 'family_activities';
-
 .todo_wrap {
   margin: 5px 5px 5px 5px;
   padding: 5px 10px 5px 10px;
@@ -44,7 +44,9 @@
   }
 }
 
-.rs_dialog_holder { z-index: 2000; }
+.rs_dialog_holder {
+  z-index: 2000;
+}
 
 .centered {
   text-align: center;
@@ -54,41 +56,119 @@ ul.inline {
   overflow: auto;
   list-style-type: none;
 }
-ul.inline > li {
+
+ul.inline>li {
   display: inline-block;
   vertical-align: top;
 }
-.centered > ul.inline > li {
+
+.centered>ul.inline>li {
   padding-left: 1em;
   padding-right: 1em;
 }
-ul.inline.even > li {
+
+ul.inline.even>li {
   width: 250px;
 }
 
 #todo_history {
-  ul { padding-left:20px; list-style:none; }
-  li { margin-bottom:10px; }
+  ul {
+    padding-left: 20px;
+    list-style: none;
+  }
+  li {
+    margin-bottom: 10px;
+  }
   li.complete:before {
     font-family: 'FontAwesome';
     content: '\f00c';
-    margin:0 5px 0 -15px;
+    margin: 0 5px 0 -15px;
     color: green;
   }
   li.incomplete:before {
     font-family: 'FontAwesome';
     content: '\f00d';
-    margin:0 5px 0 -15px;
+    margin: 0 5px 0 -15px;
     color: red;
   }
-
 }
 
 //The accordion is closed
 .accordion-icon:before {
   content: "\f0d7";
 }
+
 //The accordion is open
 .active .accordion-icon:before {
   content: "\f0d8";
+}
+
+// Callouts, from http://www.techrepublic.com/blog/web-designer/create-fancy-looking-call-outs-with-lightweight-css/
+span.balloon {
+  outline: none;
+  text-decoration: none;
+  color: #00F;
+  cursor: pointer;
+}
+
+span.balloon strong {
+  line-height: 30px;
+  font-family: Candara, Tahoma, Geneva, sans-serif;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+span.balloon:hover {
+  text-decoration: none;
+  text-outline: none;
+  color: #F06;
+}
+
+span.balloon:hover img {
+  text-decoration: none;
+  text-outline: none;
+  border: none;
+}
+
+span.balloon img {
+  border: none;
+}
+
+span.balloon div {
+  z-index: 10;
+  display: none;
+  padding: 5px 5px;
+  margin-top: -30px;
+  margin-left: 10px;
+  min-width: 275px;
+  line-height: 16px;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-box-shadow: 6px 6px 10px #CCC;
+  -webkit-box-shadow: 6px 6px 10px #CCC;
+  box-shadow: 6px 6px 10px #CCC;
+  font-family: Calibri, Tahoma, Geneva, sans-serif;
+  font-size: .8em;
+}
+
+span.balloon:hover div {
+  display: inline;
+  position: absolute;
+  color: #111;
+  border: 1px solid #DCA;
+  background: #fffAF0;
+}
+
+span.balloon:hover li {
+  list-style: none;
+}
+
+.arrow {
+  z-index: 20;
+  position: absolute;
+  top: 30px;
+  border: 0;
+  left: -12px;
+  background-color: transparent;
 }
