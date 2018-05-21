@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "Contents", :type => :request do
-  describe "GET /contents" do
+RSpec.describe "FamilyActivities", :type => :request do
+  describe "GET /family_activities" do
     it "works! (now write some real specs)" do
       skip('build valid requests')
-      get contents_path
+      get family_activities_path
       expect(response).to have_http_status(200)
     end
   end
