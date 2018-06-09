@@ -11,6 +11,7 @@
  * file per style scope.
  *
  */
+
 @import 'mixins';
 @import 'jquery.ui.core';
 @import 'jquery.ui.datepicker';
@@ -23,7 +24,6 @@
 @import 'todo_templates';
 @import 'devices';
 @import 'family_activities';
-
 body {
   width: 100%;
   height: 100%;
@@ -36,9 +36,10 @@ body {
 
 .blur {
   width: 100%;
-  height: 100%;
+  height: auto;
   background-color: rgba(255, 255, 255, .85);
 }
+
 nav.offset-top {
   padding-top: 80px;
   #homenav {
@@ -47,17 +48,17 @@ nav.offset-top {
     .sub-nav {
       float: right;
       overflow: visible;
-      dd > a {
+      dd>a {
         font-size: 1.5rem;
         color: #fff;
       }
-      dd.active > a {
+      dd.active>a {
         padding-bottom: 30px;
       }
     }
   }
-
 }
+
 nav.top-bar {
   padding-right: 40px;
   padding-left: 40px;
@@ -70,11 +71,11 @@ nav.top-bar {
         a {
           padding-bottom: 20px !important;
         }
-
       }
     }
   }
 }
+
 main {
   height: 100%;
   width: 100%;
@@ -103,7 +104,6 @@ main {
     height: 33%;
     width: 100%;
     text-align: center;
-
     ul {
       margin: 0;
       padding: 0;
@@ -115,31 +115,32 @@ main {
         padding-right: 40px;
       }
     }
-
   }
 }
+
 #features {
   height: 100%;
   width: 100%;
   background-color: green;
 }
+
 #how {
   height: 100%;
   width: 100%;
   background-color: red;
 }
+
 #pricing {
   height: 100%;
   width: 100%;
   background-color: orange;
 }
+
 #about {
   height: 100%;
   width: 100%;
   background-color: silver;
 }
-
-
 
 .todo_wrap {
   margin: 5px 5px 5px 5px;
@@ -161,7 +162,9 @@ main {
   }
 }
 
-.rs_dialog_holder { z-index: 2000; }
+.rs_dialog_holder {
+  z-index: 2000;
+}
 
 .centered {
   text-align: center;
@@ -171,76 +174,84 @@ ul.inline {
   overflow: auto;
   list-style-type: none;
 }
-ul.inline > li {
+
+ul.inline>li {
   display: inline-block;
   vertical-align: top;
 }
-.centered > ul.inline > li {
+
+.centered>ul.inline>li {
   padding-left: 1em;
   padding-right: 1em;
 }
-ul.inline.even > li {
+
+ul.inline.even>li {
   width: 250px;
 }
 
 #todo_history {
-  ul { padding-left:20px; list-style:none; }
-  li { margin-bottom:10px; }
+  ul {
+    padding-left: 20px;
+    list-style: none;
+  }
+  li {
+    margin-bottom: 10px;
+  }
   li.complete:before {
     font-family: 'FontAwesome';
     content: '\f00c';
-    margin:0 5px 0 -15px;
+    margin: 0 5px 0 -15px;
     color: green;
   }
   li.incomplete:before {
     font-family: 'FontAwesome';
     content: '\f00d';
-    margin:0 5px 0 -15px;
+    margin: 0 5px 0 -15px;
     color: red;
   }
-
 }
 
 //The accordion is closed
 .accordion-icon:before {
   content: "\f0d7";
 }
+
 //The accordion is open
 .active .accordion-icon:before {
   content: "\f0d8";
 }
 
 // Callouts, from http://www.techrepublic.com/blog/web-designer/create-fancy-looking-call-outs-with-lightweight-css/
-
 span.balloon {
-  outline:none;
-  text-decoration:none;
+  outline: none;
+  text-decoration: none;
   color: #00F;
   cursor: pointer;
 }
 
 span.balloon strong {
-  line-height:30px;
+  line-height: 30px;
   font-family: Candara, Tahoma, Geneva, sans-serif;
   font-size: 1.2em;
   font-weight: bold;
 }
 
 span.balloon:hover {
-  text-decoration:none;
-  text-outline:none;
+  text-decoration: none;
+  text-outline: none;
   color: #F06;
 }
 
 span.balloon:hover img {
-  text-decoration:none;
-  text-outline:none;
+  text-decoration: none;
+  text-outline: none;
   border: none;
 }
 
 span.balloon img {
   border: none;
 }
+
 span.balloon div {
   z-index: 10;
   display: none;
@@ -266,11 +277,12 @@ span.balloon:hover div {
   border: 1px solid #DCA;
   background: #fffAF0;
 }
-span.balloon:hover li{
-  list-style:none;
+
+span.balloon:hover li {
+  list-style: none;
 }
 
-.arrow{
+.arrow {
   z-index: 20;
   position: absolute;
   top: 30px;
