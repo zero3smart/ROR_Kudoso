@@ -262,6 +262,11 @@
     .cd-popular & {
         background-color: $theme-color;
     }
+    .cd-price {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
     @include MQ(M) {
         height: auto;
         padding: 1.9em 0.9em 1.6em;
@@ -279,6 +284,9 @@
         h2 {
             font-size: 1.8rem;
             letter-spacing: 2px;
+        }
+        .cd-price {
+            position: relative;
         }
     }
 }
