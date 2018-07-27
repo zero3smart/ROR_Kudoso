@@ -54,17 +54,17 @@ function ready() {
             location.reload();
         }
     });
-    if (typeof(setupRangeSelector) == 'function')
+    if (typeof (setupRangeSelector) == 'function')
         setupRangeSelector();
 
 }
-$(function() {
+$(function () {
 
     $(document).ready(ready);
     $(document).on('page:load', ready);
     jQuery(".best_in_place").best_in_place();
-    $('a.close').click(function(){
-       $(this.parentNode).hide(500);
+    $('a.close').click(function () {
+        $(this.parentNode).hide(500);
     });
     $('#nav').affix({
         offset: {
@@ -73,6 +73,6 @@ $(function() {
     });
 });
 
-$(document).on("page:load ready", function(){
+$(document).on("page:load ready", function () {
     $("input.datepicker").datepicker();
 });
