@@ -1,66 +1,78 @@
-#landing.container
-  #landing-title
-    #landing-title-image
-      = image_tag 'KudosoLogo_300.png'
-    #landing-title-tagline
+.marketing.container.clear
+  .marketing-title
+    .marketing-title-image
+      = image_tag 'kudoso-logo.svg'
+    .marketing-title-tagline
       Changing the way families
       %br
       manage technology
-  #landing-headline
-    #landing-headline-header
+  #landing-headline.marketing-headline
+    .marketing-headline-header
       %span.hidden-xs
         Born in 2014,
       %span.superbold
         Launching Fall 2015
-    #landing-headline-cta.visible-md.visible-lg.hidden-sm.hidden-xs
-      #landing-headline-cta-title
-        Get updates, tips and
+    .marketing-headline-cta.visible-md.visible-lg.hidden-sm.hidden-xs
+      .marketing-headline-cta-title
+        We're launching this fall, to get up to a
         %span.bold
-          Amazing Discounts
-        by showing your interest in Kudoso
-      #landing-headline-cta-input
-        #landing-headline-cta-input-title
+          30% DISCOUNT
+        join our newsletter now!
+      .marketing-headline-cta-input
+        .marketing-headline-cta-input-title
           Enter your email address:
-        #landing-headline-cta-input-box
+        .marketing-headline-cta-input-box
           %input#email.signup
-      #landing-headline-cta-disclaimer
+      .marketing-headline-cta-disclaimer
         We won't share your email and we won't spam you.
-      #landing-headline-cta-button{onclick: 'signup();'}
+      .marketing-headline-cta-button{onclick: 'signup();'}
         I'm interested in Kudoso
-  #landing-intro
-    #landing-intro-header
+  .marketing-intro
+    .marketing-intro-header
       Introducing Kudoso
-    #landing-intro-body
-      Our mission is to help parents control the influence of technology on their children through mutual cooperation and
-      the positive reinforcement of family values and life skills.
-      #landing-headline-cta-inline.visible-xs.visible-sm.hidden-md.hidden-lg
-        #landing-headline-cta-inline-title
-          Get updates, tips and
-          %span.bold
-            Amazing Discounts
-          by showing your interest in Kudoso
-        #landing-headline-cta-inline-input
-          #landing-headline-cta-inline-input-title
-            Enter your email address:
-          #landing-headline-cta-inline-input-box
-            %input#email-inline.signup
-        #landing-headline-cta-inline-disclaimer
-          We won't share your email and we won't spam you.
-        #landing-headline-cta-inline-button{onclick: 'signup();'}
-          I'm interested in Kudoso
-  #landing-features
+    .spacer
+    .row
+      .col-md-5.col-md-offset-1
+        .marketing-intro-body
+          Our mission is to help parents control the influence of technology on their children through mutual cooperation and
+          the positive reinforcement of family values and life skills.
+      .col-md-6
+        .marketing-intro-video
+          .hidden-xs.hidden-sm.visible-md.visible-lg
+            %a{:class => "wistia-popover[height=388,playerColor=00528c,width=640]", :href => "//fast.wistia.net/embed/iframe/3hbt5e8rum?popover=true"}
+              %img{:alt => "", :src => "https://embed-ssl.wistia.com/deliveries/2b8b4f28ef2a7abd37d74d92270ed010f76da97b.jpg?image_play_button=true&image_play_button_color=00528ce0&image_crop_resized=178x100"}
+            %script{:charset => "ISO-8859-1", :src => "//fast.wistia.com/assets/external/popover-v1.js"}
+          .visible-xs.visible-sm.hidden-md.hidden-lg
+            %iframe.wistia_embed{:allowfullscreen => "", :allowtransparency => "true", :frameborder => "0", :height => "169", :mozallowfullscreen => "", :msallowfullscreen => "", :name => "wistia_embed", :oallowfullscreen => "", :scrolling => "no", :src => "//fast.wistia.net/embed/iframe/3hbt5e8rum?videoFoam=true", :webkitallowfullscreen => "", :width => "300"}
+            %script{:src => "//fast.wistia.net/assets/external/E-v1.js"}
+    .marketing-headline-cta-inline.visible-xs.visible-sm.hidden-md.hidden-lg
+      .marketing-headline-cta-inline-title
+        We're launching this fall, to get up to a
+        %span.bold
+          30% DISCOUNT
+        join our newsletter now!
+      .marketing-headline-cta-inline-input
+        .marketing-headline-cta-inline-input-title
+          Enter your email address:
+        .marketing-headline-cta-inline-input-box
+          %input#email-inline.signup
+      .marketing-headline-cta-inline-disclaimer
+        We won't share your email and we won't spam you.
+      .marketing-headline-cta-inline-button{onclick: 'signup();'}
+        I'm interested in Kudoso
+  .marketing-features.blue
     .row
       .col-xs-10.col-xs-offset-1
-        #landing-features-header
+        .marketing-features-header
           %hr
-        #landing-features-title
-          #landing-features-title-inside
+        .marketing-features-title
+          .marketing-features-title-inside.blue
             Features
     .row.features
       .col-md-5.col-xs-offset-1
         .feature-wrap
           .feature-icon
-            %i.ss-videogame
+            %i.ss-glyphish-outlined.ss-videogame
           .feature-body
             .feature-title
               Control Screen Time
@@ -68,7 +80,7 @@
       .col-md-5.col-xs-offset-1.col-md-offset-0
         .feature-wrap
           .feature-icon
-            %i.ss-check
+            %i.ss-glyphish-outlined.ss-check
           .feature-body
             .feature-title
               Children Learn
@@ -77,7 +89,7 @@
       .col-md-5.col-xs-offset-1
         .feature-wrap
           .feature-icon
-            %i.ss-trophy
+            %i.ss-glyphish-outlined.ss-trophy
           .feature-body
             .feature-title
               Reward & Partner
@@ -85,7 +97,7 @@
       .col-md-5.col-xs-offset-1.col-md-offset-0
         .feature-wrap
           .feature-icon
-            %i.ss-piechart
+            %i.ss-glyphish-outlined.ss-piechart
           .feature-body
             .feature-title
               Powerful Reports
@@ -94,7 +106,7 @@
       .col-md-5.col-xs-offset-1
         .feature-wrap
           .feature-icon
-            %i.ss-filter
+            %i.ss-glyphish-outlined.ss-filter
           .feature-body
             .feature-title
               Monitor & Filter
@@ -102,7 +114,7 @@
       .col-md-5.col-xs-offset-1.col-md-offset-0
         .feature-wrap
           .feature-icon
-            %i.ss-smartphone
+            %i.ss-glyphish-outlined.ss-smartphone
           .feature-body
             .feature-title
               Easy to Use
@@ -111,29 +123,52 @@
       .col-md-5.col-xs-offset-1
         .feature-wrap
           .feature-icon
-            %i.ss-like
+            %i.ss-glyphish-outlined.ss-like
           .feature-body
             .feature-title
               Encourage
-            children to explore new activities new activities and learn through Kudoso Integrations including Kahn Academy and FitBit
+            children to explore new activities and learn through Kudoso Integrations including Khan Academy and FitBit
       .col-md-5.col-xs-offset-1.col-md-offset-0
         .feature-wrap
           .feature-icon
-            %i.ss-smile
+            %i.ss-glyphish-outlined.ss-smile
           .feature-body
             .feature-title
               Smile
             knowing there are many more features that will change the way your family manages technology!
-  #landing-news
-    #landing-news-title
-      =image_tag 'in-the-news.png', alt: 'Kudoso in the News'
-    #landing-news-body
-      = link_to 'http://www.engadget.com/2014/07/02/kudoso-router-software/' do
-        = image_tag 'engadget.jpg'
-      = link_to 'http://www.usatoday.com/story/tech/personal/2014/07/02/wireless-router-chores/12005603/' do
-        = image_tag 'usatoday.jpg'
-      =link_to 'http://techcrunch.com/2014/07/01/kudoso-is-a-router-that-rewards-your-kids-with-facebook-time-for-studying-doing-chores/' do
-        = image_tag 'techcrunch.jpg'
+  .marketing-intro
+    .marketing-intro-header
+      Kudoso Helps You:
+  .marketing-links
+    %a{href: '/content_filtering'}
+      #link-protect.marketing-link
+        .marketing-link-title.title-top
+          %span.nav-btn
+            %span.hidden-xs
+              Filter &
+            Protect
+    %a{href: '/screen_time_limits'}
+      #link-limit.marketing-link
+        .marketing-link-title.title-top
+          %span.nav-btn
+            Limit
+            %span.hidden-xs
+              Screen Time
+  .marketing-links
+    %a{href: '/kudos'}
+      #link-kudos.marketing-link
+        .marketing-link-title.title-bottom
+          %span.nav-btn
+            %span.hidden-xs
+              Teach
+            Life Skills
+    %a{href: '/rewards'}
+      #link-reward.marketing-link
+        .marketing-link-title.title-bottom
+          %span.nav-btn
+            %span.hidden-xs
+              Fun &
+            Rewards
 
   #thankyou.modal.fade
     .modal-dialog
@@ -166,11 +201,16 @@
          statusCode: {
           200: function(e) {
             $('#thankyou').modal();
+            _agile.set_email(email);
+            _agile.add_score(10);
+            ga('send','pageview','/landing_singup_thankyou');
            },
           400: function(e) {
             alert("We're sorry, the server did not receive your email address, please try again.");
           },
           409: function(e) {
+            _agile.set_email(email);
+            _agile.add_score(10);
             alert("We're sorry, this email address is already registered.");
           },
           500: function(e) {
