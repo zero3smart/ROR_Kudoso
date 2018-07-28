@@ -19,12 +19,9 @@
     %meta{:content => "/ms-icon-144x144.png", :name => "msapplication-TileImage"}/
     %meta{:content => "#ffffff", :name => "theme-color"}/
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
-    %title= content_for?(:title) ? yield(:title) : "Kudoso helps families manage the influence of technology"
-    %meta{:content => content_for?(:description) ? yield(:description) : "Kudoso helps parents manage screen time across all technology in the house, filter internet content and provide positive rewards for children.", :name => "description"}/
+    %title= content_for?(:title) ? yield(:title) : "Kudoso"
+    %meta{:content => content_for?(:description) ? yield(:description) : "Kudoso helps parents manage screen time across all technology in the house, filter internet content and provide a positive reward for children.", :name => "description"}/
     %meta{:content => content_for?(:keywords) ? yield(:keywords) : "Kudoso, kids, children, screentime, screen time, parental controls, content filtering, internet filter, game console, mobile, limit internet access, block applications, monitor usage", :name => "keywords"}/
-    %meta{:content => content_for?(:title) ? yield(:title) : "Kudoso helps families manage the influence of technology", :property => "og:title"}/
-    %meta{:content => content_for?(:description) ? yield(:description) : "Kudoso provides the leading solution for managing technology your kids are using. Kudoso teaches life skills and rewards positive behavior while protecting your children from unsavory internet content and obsessive device usage. ", :property => "og:description"}/
-    %meta{:content => 'http://www.kudoso.com/Kudoso_Facebook_Cover.png', :property => "og:image"}/
     = stylesheet_link_tag 'reset', media: 'all', 'data-turbolinks-track' => true
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = stylesheet_link_tag 'ss-glyphish-outlined', media: 'all', 'data-turbolinks-track' => true
@@ -43,59 +40,37 @@
         = render 'layouts/messages'
         = yield
       - else
-        .container.white
+        .container
           = render 'layouts/messages'
           = yield
     #footer.container
-      - if controller_name == 'home'
-        .row
-          .footer-news
-            .footer-news-title
-              =image_tag 'in-the-news.png', alt: 'Kudoso in the News'
-            .footer-news-body
-              = link_to 'http://www.engadget.com/2014/07/02/kudoso-router-software/' do
-                = image_tag 'engadget.jpg'
-              = link_to 'http://www.usatoday.com/story/tech/personal/2014/07/02/wireless-router-chores/12005603/' do
-                = image_tag 'usatoday.jpg'
-              =link_to 'http://techcrunch.com/2014/07/01/kudoso-is-a-router-that-rewards-your-kids-with-facebook-time-for-studying-doing-chores/' do
-                = image_tag 'techcrunch.jpg'
-      .row.spacer.white
-      #footer-social.row
+      #footer-social
         .social-link
           = link_to 'http://www.facebook.com/pages/Kudoso/549419865079553' do
-            %i.ss-social-circle.ss-facebook
+            %i.ss-facebook
         .social-link
           =link_to 'https://twitter.com/Kudosokids' do
-            %i.ss-social-circle.ss-twitter
-        %p
-          Follow Kudoso and get great content, tips and tricks about being an Intentional Parent
+            %i.ss-twitter
       #footer-body.row
         .col-sm-4.text-sm-left
           = link_to 'Privacy Policy', '/privacy'
         .col-sm-4
-          = image_tag 'kudoso-logo-white.svg'
+          = image_tag 'KudosoLogo_150.png'
         .col-sm-4.text-sm-right
           &copy; 2014 - 2015 Kudoso Tech, LLC
       #footer-bottom.row
-        .col-sm-5.text-sm-left
-          iPad, iPhone, Android, PlayStation, Xbox, Khan Academy and FitBit are registered trademarks of their respective companies.
-        .col-sm-2
-        .col-sm-5.text-sm-right
+        .col-sm-6.text-sm-left
+          Kahn Academy and FitBit are registered trademarks of their respective companies
+        .col-sm-6.text-sm-right
           Kudoso &reg; is a registered trademark of Kudoso Tech, LLC; All Rights Reserved.
           %br
           Kudoso is protected by multiple pending patents.
+
     = javascript_include_tag :application, media: :all, 'data-turbolinks-track' => true
-    - if Rails.env.production?
-      %script{type: "text/javascript", src: "https://kudoso.agilecrm.com/stats/min/agile-min.js"}
-      %script{type: "text/javascript"}
-        :plain
-          _agile.set_account('82ghss8tfga7868eu5td7mk712', 'kudoso');
-          _agile.track_page_view();
-          _agile_execute_web_rules();
-      :javascript
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-62781113-1', 'auto');
-        ga('send', 'pageview');
+    :javascript
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-62781113-1', 'auto');
+      ga('send', 'pageview');
