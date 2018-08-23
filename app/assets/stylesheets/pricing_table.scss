@@ -35,7 +35,6 @@
     .fieldset {
         display: inline-block;
         position: relative;
-        padding: 2px;
         border-radius: 50em;
         border: 1px solid lighten($color-1, 10%);
     }
@@ -48,7 +47,7 @@
         z-index: 1;
         display: inline-block;
         float: left;
-        width: 90px;
+        width: 92px;
         height: 40px;
         line-height: 40px;
         cursor: pointer;

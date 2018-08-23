@@ -867,6 +867,13 @@ ul.kudoso-bullets li:before {
   }
 }
 
+.wizard-body {
+  .manual-tasks {
+    overflow-y: scroll;
+    max-height: 80px;
+  }
+}
+
 .text-xs-left {
   text-align: left;
 }
