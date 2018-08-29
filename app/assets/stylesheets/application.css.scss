@@ -11,7 +11,6 @@
  * file per style scope.
  *
  */
-
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "scrolling-nav";
@@ -25,11 +24,11 @@
 @import 'todo_schedules';
 @import 'todo_templates';
 @import 'devices';
-@import 'family_activities';
 @import 'animate.min';
 @import 'pricing_table';
 @import 'simpletextrotator';
 @import 'bootstrap-datepicker3';
+
 html {
   width: 100%;
   height: 90%;
@@ -51,7 +50,6 @@ body {
 }
 
 /* bootstrap 3 helpers */
-
 input[type="text"],
 input[type="password"],
 input[type="email"],
@@ -66,6 +64,7 @@ textarea {
   border-radius: 4px;
   outline: 0;
   margin: 0 auto;
+
   &:focus {
     background-color: white;
     @include box-shadow(#0095E1 0px 0px 4px 1px);
@@ -151,17 +150,20 @@ header {
   margin-bottom: -100px;
   padding-left: 0;
   padding-right: 0;
+
   .marketing-title {
     position: relative;
     background-color: #ffffff;
     padding-top: 15px;
     padding-bottom: 15px;
     text-align: center;
+
     .marketing-title-tagline {
       padding-top: 10px;
       font-size: 21px;
     }
   }
+
   #landing-headline {
     background: image-url('landing-bg.jpg') no-repeat center bottom;
     background-size: cover;
@@ -170,6 +172,7 @@ header {
     -o-background-size: cover;
     background-size: cover;
   }
+
   #screentime-headline {
     background: image-url('kids_gaming_1140x500.jpg') no-repeat center top;
     background-size: cover;
@@ -178,6 +181,7 @@ header {
     -o-background-size: cover;
     background-size: cover;
   }
+
   #filtering-headline {
     background: image-url('mom_ipad_detail_1140x500.jpg') no-repeat center bottom;
     background-size: cover;
@@ -186,6 +190,7 @@ header {
     -o-background-size: cover;
     background-size: cover;
   }
+
   #kudos-headline {
     background: image-url('kids_dishes_1140x500.jpg') no-repeat 75% center;
     background-size: cover;
@@ -194,6 +199,7 @@ header {
     -o-background-size: cover;
     background-size: cover;
   }
+
   #rewards-headline {
     background: image-url('kids_sports_1140x500.jpg') no-repeat center top;
     background-size: cover;
@@ -202,11 +208,13 @@ header {
     -o-background-size: cover;
     background-size: cover;
   }
+
   .marketing-headline {
     position: relative;
     width: 100%;
     height: 500px;
     padding: 0;
+
     .marketing-headline-header {
       height: 80px;
       background-color: rgba(0, 0, 0, 0.53);
@@ -216,11 +224,13 @@ header {
       line-height: 80px;
       font-style: italic;
       text-shadow: #000000 1px 1px;
+
       .superbold {
         font-weight: bolder;
         text-shadow: #000000 2px 2px;
       }
     }
+
     .marketing-headline-cta {
       position: absolute;
       right: 20px;
@@ -233,19 +243,23 @@ header {
       text-align: center;
       padding: 15px 15px 15px 15px;
       font-weight: 500;
+
       .marketing-headline-cta-title {
         font-size: 1.5rem;
         padding-bottom: 15px;
         color: #fff;
       }
+
       .marketing-headline-cta-input {
         background-color: rgba(0, 0, 0, .5); //$kudoso-blue;
         border-radius: 4px;
         font-size: 1.8rem;
         padding: 10px 5px 5px 5px;
+
         .marketing-headline-cta-input-title {
           color: #fff;
         }
+
         .marketing-headline-cta-input-box {
           input {
             width: 100%;
@@ -261,14 +275,18 @@ header {
           }
         }
       }
+
       .marketing-headline-cta-disclaimer {
         font-size: 1.2rem;
         color: rgba(0, 0, 0, 0.7);
         padding: 5px 0 10px 0;
       }
+
       .marketing-headline-cta-button {
-        width: 100%; // height: 40px;
-        border-radius: 8px; //background-color: rgb(37, 184, 157); //$kudoso-green;
+        width: 100%;
+        // height: 40px;
+        border-radius: 8px;
+        //background-color: rgb(37, 184, 157); //$kudoso-green;
         background-color: #26BC00; //rgb(38, 188, 0);
         background-image: linear-gradient(-180deg, #2FE700 0%, #26BC00 100%);
         color: white;
@@ -282,6 +300,7 @@ header {
       }
     }
   }
+
   .marketing-intro,
   .marketing-links-intro {
     width: 100%;
@@ -289,23 +308,28 @@ header {
     padding: 5em 25px;
     text-align: center;
     position: relative;
+
     .marketing-intro-header,
     .marketing-links-intro-header {
       font-size: 3.5rem;
     }
+
     .marketing-intro-body {
       max-width: 720px;
       margin: 0 auto;
       font-size: 2.0rem;
     }
+
     .marketing-intro-video {
       max-width: 100%;
     }
   }
+
   .marketing-links-intro {
     color: #FFF;
     background: #222 none repeat scroll 0% 0% !important;
   }
+
   .marketing-headline-cta-inline {
     width: 100%;
     background-color: $dark-blue;
@@ -314,17 +338,21 @@ header {
     color: white;
     margin-top: 20px;
     border-radius: 8px;
+
     .marketing-headline-cta-inline-title {
       font-size: 2rem;
       padding-bottom: 5px;
     }
+
     .marketing-headline-cta-inline-input {
       background-color: $kudoso-blue;
       color: white;
       border-radius: 8px;
       font-size: 1.8rem;
       padding: 10px 5px 5px 10px;
+
       .marketing-headline-cta-inline-input-title {}
+
       .marketing-headline-cta-inline-input-box {
         input {
           width: 100%;
@@ -333,10 +361,12 @@ header {
         }
       }
     }
+
     .marketing-headline-cta-inline-disclaimer {
       font-size: 0.9rem;
       padding: 5px 0 10px 0;
     }
+
     .marketing-headline-cta-inline-button {
       width: 100%;
       height: 40px;
@@ -348,6 +378,7 @@ header {
       cursor: pointer;
     }
   }
+
   .marketing-features {
     position: relative;
     width: 100%;
@@ -355,12 +386,14 @@ header {
     padding-bottom: 20px;
     padding-top: 5em;
     padding-bottom: 5em;
+
     .marketing-features-header {
       padding: 20px 0 20px;
       position: relative;
       width: 100%;
       height: 80%;
     }
+
     .marketing-features-title {
       position: absolute;
       height: 80px;
@@ -370,14 +403,17 @@ header {
       left: 50%;
       top: 0;
       text-align: center;
+
       .marketing-features-title-inside {
         position: relative;
         padding: 0 15px;
         left: -50%;
       }
     }
+
     .features {
       font-size: 1.7rem;
+
       .feature-icon {
         position: absolute;
         height: 80px;
@@ -385,20 +421,24 @@ header {
         text-align: left;
         font-size: 3rem;
       }
+
       .feature-body {
         margin-left: 70px;
         padding-bottom: 15px;
       }
     }
   }
+
   .feature-title {
     display: inline;
     font-family: "proxima-nova-alt", sans-serif;
     font-weight: 700;
   }
+
   .marketing-body {
     padding: 20px 5px 20px 5px;
   }
+
   #link-protect {
     background: image-url('mom_ipad_detail_570x300.jpg') no-repeat center bottom;
     background-size: cover;
@@ -407,6 +447,7 @@ header {
     -o-background-size: cover;
     background-size: cover;
   }
+
   #link-limit {
     background: image-url('kids_gaming_570x300.jpg') no-repeat center top;
     background-size: cover;
@@ -415,6 +456,7 @@ header {
     -o-background-size: cover;
     background-size: cover;
   }
+
   #link-kudos {
     background: image-url('kids_dishes_570x300.jpg') no-repeat 75% center;
     background-size: cover;
@@ -423,6 +465,7 @@ header {
     -o-background-size: cover;
     background-size: cover;
   }
+
   #link-reward {
     background: image-url('kids_sports_570x300.jpg') no-repeat 28% top;
     background-size: cover;
@@ -431,6 +474,7 @@ header {
     -o-background-size: cover;
     background-size: cover;
   }
+
   .marketing-link {
     cursor: pointer;
     position: relative;
@@ -438,12 +482,14 @@ header {
     width: 50%;
     display: inline-block;
     float: left;
+
     .nav-btn {
       border: 2px solid rgba(255, 255, 255, 0.5);
       padding: 8px 15px 5px;
       border-radius: 6px;
       font-weight: 400;
     }
+
     .marketing-link-title {
       position: absolute;
       width: 100%;
@@ -456,35 +502,43 @@ header {
       font-style: italic;
       text-shadow: #000000 1px 1px;
     }
+
     .title-top {
       top: 0;
     }
+
     .title-bottom {
       bottom: 0;
     }
   }
+
   .marketing-link:hover {
     .marketing-link-title {
       background-color: rgba(0, 0, 0, 0.23);
     }
+
     .nav-btn {
       border-color: rgba(0, 0, 0, 0.5);
       background: rgba(0, 0, 0, 0.7) none repeat scroll 0% 0%;
     }
   }
+
   .marketing-links:nth-child(1) {
     padding-bottom: 50px;
     background: red;
   }
+
   .small-marketing-links {
     position: relative;
     margin-top: -40px;
     padding-bottom: 40px;
   }
+
   .small-marketing-link {
     height: 40px;
     width: 33.3%;
     background-color: transparent;
+
     .marketing-link-title {
       height: 40px;
       line-height: 40px;
@@ -550,30 +604,36 @@ header {
   margin-top: -200px;
   padding-top: 190px;
   text-align: center;
+
   a,
   a:hover {
     color: white;
   }
+
   .footer-news {
     margin: -210px 10px 0px;
     text-align: center;
     padding: 25px 0 110px 0;
+
     .footer-news-body {
       background-color: $dark-blue;
       max-width: 600px;
       margin: 0 auto;
       border-radius: 8px;
+
       img {
         padding: 10px 10px 10px 10px;
       }
     }
   }
+
   #footer-social {
     margin-top: -77px;
     background-color: #ffffff;
     color: white;
     padding: 0 10px;
     font-size: 1.4rem;
+
     .social-link {
       display: inline-block;
       width: 57px;
@@ -584,28 +644,34 @@ header {
       border-radius: 50%;
       background-color: #1C2331; // $dark-blue;
       margin: 0 10px 0 10px;
+
       a:hover {
         text-decoration: none;
       }
     }
+
     p {
       width: 310px;
       margin: 10px auto;
     }
   }
+
   #footer-body {
     background-color: #1C2331; //$dark-blue;
     color: white;
     padding-bottom: 15px;
     padding-top: 100px;
     margin-top: -93px;
+
     a {
       text-decoration: underline;
     }
   }
+
   #footer-bottom {
     //background-color: $kudoso-green;
-    background-color: #12141E; //color: $dark-blue;
+    background-color: #12141E;
+    //color: $dark-blue;
     color: rgba(255, 255, 255, .5);
     padding: 10px 5px 10px 5px;
     font-size: 1.1rem;
@@ -616,8 +682,10 @@ header {
 .container {
   max-width: 1140px;
   margin: 0 auto;
+
   .margin {
     margin: 0 2.5%;
+
     .padding {
       padding: 40px 0;
     }
@@ -638,10 +706,12 @@ small {
     border: solid 4px #900;
     background-color: #FF6565;
   }
+
   &.success {
     border: solid 4px #26722D;
     background-color: #41bb3c;
   }
+
   color: black;
   z-index: 999;
   position: fixed;
@@ -651,16 +721,19 @@ small {
   max-width: 800px;
   padding: 10px;
   margin: 5px;
+
   p {
     font-size: 110%;
     margin: 15px 0;
   }
+
   a.close {
     position: absolute;
     top: -4px;
     right: 5px;
     text-decoration: none;
   }
+
   a.close:hover {
     text-decoration: none;
     color: lighten(black, 10%);
@@ -673,15 +746,19 @@ small {
   border: 1px solid gray;
   border-radius: 5px;
   color: black;
+
   .todo_name {
     font_size: 1.3em;
   }
+
   .todo.optional.incomplete {
     color: #41bb3c;
   }
+
   .todo.required {
     font-weight: bold;
   }
+
   .todo.required.incomplete {
     color: #ff4441;
   }
@@ -719,15 +796,18 @@ ul.inline.even>li {
     padding-left: 20px;
     list-style: none;
   }
+
   li {
     margin-bottom: 10px;
   }
+
   li.complete:before {
     font-family: 'FontAwesome';
     content: '\f00c';
     margin: 0 5px 0 -15px;
     color: green;
   }
+
   li.incomplete:before {
     font-family: 'FontAwesome';
     content: '\f00d';
@@ -753,15 +833,18 @@ span.balloon {
   color: $theme-color;
   cursor: pointer;
   max-width: 40%;
+
   strong {
     line-height: 30px;
     font-family: Candara, Tahoma, Geneva, sans-serif;
     font-size: 1.2em;
     font-weight: bold;
   }
+
   img {
     border: none;
   }
+
   div {
     z-index: 10;
     display: none;
@@ -778,6 +861,7 @@ span.balloon {
     box-shadow: 6px 6px 10px #CCC;
     font-family: Calibri, Tahoma, Geneva, sans-serif;
     font-size: .8em;
+
     p {
       font-size: .7em;
     }
@@ -788,6 +872,7 @@ span.balloon:hover {
   text-decoration: none;
   text-outline: none;
   color: #F06;
+
   div {
     display: inline;
     position: absolute;
@@ -795,11 +880,13 @@ span.balloon:hover {
     border: 1px solid #DCA;
     background: #fffAF0;
   }
+
   img {
     text-decoration: none;
     text-outline: none;
     border: none;
   }
+
   li {
     list-style: none;
   }
@@ -862,6 +949,7 @@ ul.kudoso-bullets li:before {
     display: inline;
     padding: 5px;
   }
+
   .active {
     background-color: $kudoso-green;
   }
@@ -894,15 +982,19 @@ ul.kudoso-bullets li:before {
   .text-sm-left {
     text-align: left;
   }
+
   .text-sm-right {
     text-align: right;
   }
+
   .text-sm-center {
     text-align: center;
   }
+
   .text-sm-justify {
     text-align: justify;
   }
+
   .col-md-5 {
     margin-right: 0;
   }
@@ -912,12 +1004,15 @@ ul.kudoso-bullets li:before {
   .text-md-left {
     text-align: left;
   }
+
   .text-md-right {
     text-align: right;
   }
+
   .text-md-center {
     text-align: center;
   }
+
   .text-md-justify {
     text-align: justify;
   }
@@ -927,12 +1022,15 @@ ul.kudoso-bullets li:before {
   .text-lg-left {
     text-align: left;
   }
+
   .text-lg-right {
     text-align: right;
   }
+
   .text-lg-center {
     text-align: center;
   }
+
   .text-lg-justify {
     text-align: justify;
   }
