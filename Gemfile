@@ -1,104 +1,112 @@
-class Family < ActiveRecord::Base
-  has_many :users, dependent: :destroy
-  has_many :members, dependent: :destroy
-  has_many :todos, dependent: :destroy
-  has_many :devices, dependent: :destroy
-  has_many :family_activities, dependent: :destroy
-  has_one :screen_time_schedule
-  belongs_to :primary_contact, class_name: 'User'
-  has_many :family_device_categories, dependent: :destroy
+source 'http://rubygems.org'
 
-  accepts_nested_attributes_for :members, :reject_if => :all_blank, :allow_destroy => true
 
-  def kids
-    members.where('parent IS NOT true')
-  end
+# Core
+gem 'rails', '4.2.1'
+gem 'pg'
+gem 'responders', '~> 2.0'
+gem 'railties'
+gem 'rest-client'
+gem 'settingslogic'
 
-  def self.memorialize_todos(for_date = Date.yesterday)
-    for_date = for_date.end_of_day
-    @families = self.includes(:members => {:todo_schedules => [:my_todos, :schedule_rrules]})
-    @families.find_each do |family|
-      family.kids.each do |kid|
-        kid.todo_schedules.each do |schedule|
-          if schedule.active && schedule.start_date <= for_date && ( schedule.end_date.blank? || schedule.end_date >= for_date )
-            if schedule.schedule.occurs_on?(for_date)
-              my_todo = MyTodo.find_or_create_by(member_id: kid.id, todo_schedule_id: schedule.id, due_date: for_date)
-            end
-          end
-        end
-      end
-      family.update_attribute(:memorialized_date, for_date) if family.memorialized_date.blank? || family.memorialized_date < for_date
-    end
-  end
+# View and Assets
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+gem 'bootstrap-sass', '~> 3.3.4'
+gem 'sass-rails', '~> 4.0.3'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'haml'
+gem 'haml-rails' # Provides HAML as the default generator
+gem 'simple_form'
+gem 'jquery-rails'
+gem 'jquery-ui-sass-rails'
+gem 'font-awesome-rails'
+gem 'lazy_high_charts'
+gem 'bootstrap-datepicker-rails'
+gem 'bourbon'
+gem 'cocoon' # nested form helper
+gem 'groupdate' # adds group_by_date functions
+gem 'best_in_place' #adds in place editing features
+gem 'kaminari'
+gem 'modernizr-rails'
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer',  platforms: :ruby
 
-  def assign_group(todo_group, assign_members = Array.new)
-    todo_group.todo_templates.each do |todo_template|
-      self.assign_template(todo_template, assign_members)
-    end
-  end
 
-  def assign_template(todo_template, assign_members = Array.new)
-    return false if todo_template.nil?
-    #add to family if not already in their todo list
-    todo = self.todos.find {|todos| todos.todo_template_id == todo_template.id}
-    unless todo.present?
-      todo = self.todos.build({name: todo_template.name, description: todo_template.description, schedule: todo_template.schedule, todo_template_id: todo_template.id, kudos: todo_template.kudos})
-      todo.active = true; #can't mass assign this
-      todo.save
-      # add the todo to each family member
-    end
 
-    assign_members.each do |i|
-      unless i.blank?
-        member = Member.find_by_id(i)
-        # only assign it if the member is in the same family and does not already have this todo
-        if member.family_id == self.id && !(member.todo_schedules.find {|ts| ts.todo_id == todo.id})
-          todo_schedule = member.todo_schedules.build(start_date: Date.today.beginning_of_day, todo_id: todo.id )
-          todo_schedule.active = true
-          todo_schedule.save
-          todo_schedule.schedule_rrules.create(rrule: todo.schedule)
-        else
-          logger.warn "Attempted to assigning todo_template #{todo_template.id} to member #{member.id} who is not part of family #{self.id} or already has it"
-        end
-      end
-    end
+# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+gem 'turbolinks'
+gem 'jquery-turbolinks'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.0'
+# bundle exec rake doc:rails generates the API under doc/api.
+gem 'sdoc', '~> 0.4.0',          group: :doc
 
-    todo
-  end
 
-  def assign_activity(activity_template)
-    return nil if activity_template.nil?
+# User management
+gem 'devise'
+gem 'omniauth'
+gem 'cancan'
+gem 'chronic'
+gem 'recurring_select' # for schedules
+gem 'agilecrm-wrapper' #for AgileCRM
 
-    family_activities.create({name: activity_template.name,
-                              description: activity_template.description,
-                              activity_template_id: activity_template.id,
-                              restricted: activity_template.restricted,
-                              cost: activity_template.cost,
-                              reward: activity_template.reward,
-                              time_block: activity_template.time_block
-                             })
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
 
-  end
+# Use unicorn as the app server
+# gem 'unicorn'
 
-  # returns integer of managed devices for license purposes
-  def managed_device_count
-    devices.select{|d| (d.managed_devices_count == 0 && d.managed)}.count
-  end
+# Use Capistrano for deployment
+# gem 'capistrano-rails', group: :development
 
-  # returns an array of recommended activities based on devices in the family
-  def recommended_activities
-    rec = Set.new
+# Use debugger
+# gem 'debugger', group: [:development, :test]
 
-    devices.each do |device|
-      device.device_type.activity_templates.each { |activity_template| rec << activity_template }
-    end
-
-    rec.to_a
-  end
-
-  def create_mobicip_account
-    mobicip = Mobicip.new
-    result = mobicip.create_account(self)
-  end
-
+group :development, :test do
+  gem 'byebug'
+  gem 'rspec-rails'
+  gem 'cucumber-rails', :require => false
+  gem 'factory_girl_rails'
+  gem 'capybara-webkit', github: 'thoughtbot/capybara-webkit', branch: 'master'
+  gem 'rb-fsevent'
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
+  gem 'awesome_print'
+  gem 'quiet_assets'
+  gem 'parallel_tests'
+  gem 'zeus-parallel_tests'
+  gem 'binding_of_caller'
 end
+
+group :development do
+  gem 'guard-livereload'
+  gem 'rack-livereload'
+  gem 'better_errors'
+  gem 'terminal-notifier-guard'
+  gem 'habtm_generator'
+  gem 'rails_layout'
+  gem 'web-console', '~> 2.0'
+
+  # Deployment
+  gem 'capistrano',  "~> 2.15.0"
+end
+
+group :test do
+  gem 'launchy'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'zeus', :require => false
+  gem 'shoulda-matchers'
+  gem 'pdf-inspector'
+  gem 'poltergeist'
+  gem 'selenium-webdriver'
+  gem 'faker'
+  gem 'simplecov'
+end
+
+# Deployment
+
+gem 'rubber', git: 'https://github.com/rubber/rubber.git'
+gem 'open4'
+gem 'therubyracer', :platform => :ruby
