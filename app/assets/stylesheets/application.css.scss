@@ -24,6 +24,7 @@
 @import 'todo_schedules';
 @import 'todo_templates';
 @import 'devices';
+@import 'family_activities';
 @import 'animate.min';
 @import 'pricing_table';
 @import 'simpletextrotator';
@@ -37,6 +38,7 @@ html {
 html * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
 body {
@@ -45,9 +47,12 @@ body {
   font-family: "proxima-nova-alt", sans-serif;
   font-style: normal;
   font-weight: 100;
-  background: #d2d2d2;
-  background: asset-data-url('main-bg.png');
+  /* background: #d2d2d2;
+  background:asset-data-url('main-bg.png'); */
+  background: #252525;
 }
+
+
 
 /* bootstrap 3 helpers */
 input[type="text"],
@@ -127,6 +132,7 @@ header {
   height: 80px;
 }
 
+
 #main {
   //min-height: 100%;
   width: 100%;
@@ -157,6 +163,7 @@ header {
     padding-top: 15px;
     padding-bottom: 15px;
     text-align: center;
+
 
     .marketing-title-tagline {
       padding-top: 10px;
@@ -265,6 +272,7 @@ header {
             width: 100%;
             padding: 5px 0 5px 0;
             /* color: black; */
+
             border-radius: 5px;
             box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(0, 0, 0, .5);
@@ -296,6 +304,7 @@ header {
         font-weight: bold;
         box-shadow: 0px -3px 0px rgba(0, 0, 0, 0.2) inset, 0px 2px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, .5);
         text-shadow: -1px -1px 1px rgba(0, 0, 0, .2);
+
         padding: 7px 5px;
       }
     }
@@ -425,6 +434,7 @@ header {
       .feature-body {
         margin-left: 70px;
         padding-bottom: 15px;
+
       }
     }
   }
@@ -437,6 +447,7 @@ header {
 
   .marketing-body {
     padding: 20px 5px 20px 5px;
+
   }
 
   #link-protect {
@@ -544,6 +555,7 @@ header {
       line-height: 40px;
     }
   }
+
 }
 
 .blur {
@@ -814,6 +826,7 @@ ul.inline.even>li {
     margin: 0 5px 0 -15px;
     color: red;
   }
+
 }
 
 //The accordion is closed
@@ -826,7 +839,9 @@ ul.inline.even>li {
   content: "\f0d8";
 }
 
+
 // Callouts, from http://www.techrepublic.com/blog/web-designer/create-fancy-looking-call-outs-with-lightweight-css/
+
 span.balloon {
   outline: none;
   text-decoration: none;
@@ -867,6 +882,7 @@ span.balloon {
     }
   }
 }
+
 
 span.balloon:hover {
   text-decoration: none;
