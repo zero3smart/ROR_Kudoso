@@ -12,8 +12,22 @@ class Family < ActiveRecord::Base
 
   before_create { self.secure_key = SecureRandom.base64 }
 
+  validate :validate_timezone
+
   def kids
     members.where('parent IS NOT true')
+  end
+
+  def as_json(options = {})
+    super({except: [:mobicip_id, :mobicip_password, :mobicip_token], methods: :device_categories }.merge(options))
+  end
+
+  def device_categories
+    summary = Hash.new
+    family_device_categories.each do |cat|
+      summary["device_category_#{cat.device_category.id}"] = { amount: cat.amount, "device_category_name" => cat.device_category.name }
+    end
+    summary
   end
 
   def self.memorialize_todos(for_date = Date.yesterday)
@@ -109,6 +123,13 @@ class Family < ActiveRecord::Base
   def create_mobicip_account
     mobicip = Mobicip.new
     result = mobicip.create_account(self)
+  end
+
+  private
+
+  def validate_timezone
+    timezones = ActiveSupport::TimeZone.us_zones.collect{|tz| tz.name }
+    errors.add(:timezone, "is not a valid US Time Zone") unless timezone.nil? || timezones.include?(timezone)
   end
 
 end
