@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  apipie
   resources :activity_template_device_types
   resources :partners
   resources :contacts
@@ -82,9 +83,15 @@ Rails.application.routes.draw do
           post :reset_password
         end
       end
-          resources :todo_templates
+      resources :todo_templates
       resources :families do
+        resources :todos
         resources :members do
+          resources :my_todos do
+            member do
+              post :verify
+            end
+          end
           resources :todo_templates do
             member do
               post :assign
@@ -93,6 +100,7 @@ Rails.application.routes.draw do
           end
         end
       end
+      resources :timezones
     end
   end
 
