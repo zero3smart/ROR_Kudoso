@@ -119,15 +119,17 @@ class Family < ActiveRecord::Base
     rec = Set.new
 
     devices.each do |device|
-      device.device_type.activity_templates.each { |activity_template| rec << activity_template }
+      device.device_type.activity_templates.each { |activity_template| rec << activity_template } if device.device_type
     end
 
     rec.to_a
   end
 
   def create_mobicip_account
+    return true if self.mobicip_id.present? && self.mobicip_password.present?
     mobicip = Mobicip.new
     result = mobicip.create_account(self)
+    return result && self.mobicip_id.present? && self.mobicip_password.present?
   end
 
   def active?
@@ -135,11 +137,14 @@ class Family < ActiveRecord::Base
     true
   end
 
+
   private
 
   def validate_timezone
     timezones = ActiveSupport::TimeZone.us_zones.collect{|tz| tz.name }
     errors.add(:timezone, "is not a valid US Time Zone") unless timezone.nil? || timezones.include?(timezone)
   end
+
+
 
 end
