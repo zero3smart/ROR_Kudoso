@@ -20,8 +20,7 @@ Rails.application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  # config.serve_static_assets = false     # DEPRECATION WARNING: The configuration option `config.serve_static_assets` has been renamed to `config.serve_static_files`
-  config.serve_static_files = false
+  config.serve_static_assets = false
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -79,5 +78,15 @@ Rails.application.configure do
 
   # For devise:
   config.action_mailer.default_url_options = { host: 'staging.kudoso.com' }
+
+  # for paperclip on s3
+  config.paperclip_defaults = {
+      :storage => :s3,
+      :s3_credentials => {
+          :bucket => 'kudoso-prod',
+          :access_key_id => Settings.s3.access_key_id,
+          :secret_access_key => Settings.s3.secret_access_key
+      }
+  }
 
 end
