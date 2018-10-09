@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :apps
   apipie
   resources :activity_template_device_types
   resources :partners
@@ -97,7 +98,9 @@ Rails.application.routes.draw do
       resources :todo_templates
       resources :families do
         resources :todos
-        resources :devices
+        resources :devices do
+          resources :apps_devices, path: :apps
+        end
         resources :members do
           resources :my_todos do
             member do
