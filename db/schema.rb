@@ -377,6 +377,18 @@ ActiveRecord::Schema.define(version: 20150914201919) do
     t.datetime "updated_at"
   end
 
+  create_table "plugs", force: :cascade do |t|
+    t.string   "mac_address"
+    t.string   "serial"
+    t.string   "secure_key"
+    t.datetime "last_seen"
+    t.string   "last_known_ip"
+    t.boolean  "registered"
+    t.integer  "device_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "router_firmwares", force: :cascade do |t|
     t.integer  "router_model_id"
     t.string   "version"
@@ -481,6 +493,15 @@ ActiveRecord::Schema.define(version: 20150914201919) do
     t.datetime "date_openned"
     t.datetime "date_closed"
     t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "todo_groups", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "rec_min_age"
+    t.integer  "rec_max_age"
+    t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

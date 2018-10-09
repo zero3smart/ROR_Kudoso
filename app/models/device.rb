@@ -9,6 +9,16 @@ class Device < ActiveRecord::Base
   has_many :managed_devices, class_name: 'Device', foreign_key: 'management_id'
   has_many :screen_times
   has_many :commands
+  has_one :plug
+  has_many :app_devices
+  has_many :apps, through: :app_devices
+
+  validates :name, uniqueness: { scope: :family_id }
+  # validates_presence_of :uuid
+  validates_uniqueness_of :uuid, blank: true
+  # validates_presence_of :device_type_id, :device_type
+  validates_presence_of :family_id, :family
+
 
   before_create { self.uuid = SecureRandom.uuid }
 
@@ -57,5 +67,9 @@ class Device < ActiveRecord::Base
     result = mobicip.login(self.family)
     result = mobicip.getMDMProfileForHash(self) if result
     return result #this returns the url for the device to register with the MDM
+  end
+
+  def long_label
+    "(#{self.id}) #{self.device_type.try(:name)} #{self.name}"
   end
 end
