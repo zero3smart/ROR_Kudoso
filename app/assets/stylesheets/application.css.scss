@@ -1,43 +1,29 @@
-// Mixins
-@mixin base-fontstack {
-  font-family: proxima-nova, "Helvetica Neue", verdana, sans-serif;
-}
+@import 'mixins';
 
-// Colors
-$white: #fff;
-$black: #111;
-$pale-sky: #97C1F5;
-$sky: #1D80FA;
-$dark-sky: #165FB8;
-$night-sky: #0B315F;
-$apricot: #FDB941;
-$orange: #F76F20;
-
-
-// Base Styles
 * {
   box-sizing: border-box;
 }
 
 html,
 body {
-  @include base-fontstack;
-  background: $sky;
+  font-family: proxima-nova, "Helvetica Neue", verdana, sans-serif;
+  background: $sky_blue;
+  min-height: 100%;
 }
 
 body {
   font-size: 1.3rem;
   line-height: 1.5em;
-  color: $black;
+  color: #111;
 }
 
 h1,
 h2,
 h3,
 h4 {
-  @include base-fontstack;
+  font-family: proxima-nova, "Helvetica Neue", verdana, sans-serif;
   font-weight: bold;
-  color: $black;
+  color: #111;
   font-weight: 200;
 }
 
@@ -50,10 +36,9 @@ h3 {
   margin: 1.8em 0 1.3em;
 }
 
-// Header Styles
 .uk-sticky-placeholder header {
-  background: $sky;
-  color: $white;
+  background: $sky_blue;
+  color: $bright_white;
   padding: 1.2em !important;
   z-index: 100;
 }
@@ -68,21 +53,24 @@ h3 {
   font-weight: 200;
 }
 
+.k-nav .uk-nav-sub {
+  background: $sky_blue;
+}
+
 .k-nav .uk-subnav-pill>.uk-active>* {
-  background: $white;
-  color: $sky;
+  background: $bright_white;
+  color: $sky_blue;
 }
 
 .k-nav a {
-  color: $white;
+  color: $bright_white;
 }
 
 .k-nav a:hover {
   background: rgba(255, 255, 255, 0.8);
-  color: $sky;
+  color: $sky_blue;
 }
 
-// Section Styles
 main>section {
   position: relative;
   text-align: center;
@@ -98,6 +86,11 @@ main>section h2 {
   font-weight: 200;
 }
 
+.k-main-admin {
+  background: $eggshell;
+  min-height: 100vh;
+}
+
 .k-section {
   min-height: 100vh;
 }
@@ -109,8 +102,8 @@ section p.first {
 }
 
 section.k-intro {
-  background: $sky;
-  color: $white;
+  background: $sky_blue;
+  color: $bright_white;
 }
 
 section.k-info {
@@ -278,7 +271,7 @@ section.k-info figure {
 }
 
 .k-footer .k-footer-newsletter {
-  border-left: 1px solid #eee;
+  border-left: 1px solid $eggshell;
 }
 
 .k-footer .k-footer-newsletter small {
@@ -288,7 +281,7 @@ section.k-info figure {
 }
 
 .k-features {
-  background: $white;
+  background: $bright_white;
 }
 
 .k-features .k-feature {
@@ -356,7 +349,7 @@ main>section.k-fundamentals .k-teach {
 
 .k-news {
   min-height: 50vh;
-  background: $black;
+  background: #111;
 }
 
 .k-news article {
