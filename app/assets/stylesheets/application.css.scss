@@ -1,29 +1,45 @@
-@import 'mixins';
+// Mixins
+@mixin base-fontstack {
+  font-family: proxima-nova, "Helvetica Neue", verdana, sans-serif;
+}
 
+// Colors
+$white: #fff;
+$black: #111;
+$pale-sky: #97C1F5;
+$sky: #1D80FA;
+$dark-sky: #165FB8;
+$night-sky: #0B315F;
+$apricot: #FDB941;
+$orange: #F76F20;
+$eggshell: #eee;
+
+
+// Base Styles
 * {
   box-sizing: border-box;
 }
 
 html,
 body {
-  font-family: proxima-nova, "Helvetica Neue", verdana, sans-serif;
-  background: $sky_blue;
+  @include base-fontstack;
+  background: $sky;
   min-height: 100%;
 }
 
 body {
   font-size: 1.3rem;
   line-height: 1.5em;
-  color: #111;
+  color: $black;
 }
 
 h1,
 h2,
 h3,
 h4 {
-  font-family: proxima-nova, "Helvetica Neue", verdana, sans-serif;
+  @include base-fontstack;
   font-weight: bold;
-  color: #111;
+  color: $black;
   font-weight: 200;
 }
 
@@ -36,9 +52,10 @@ h3 {
   margin: 1.8em 0 1.3em;
 }
 
+// Header Styles
 .uk-sticky-placeholder header {
-  background: $sky_blue;
-  color: $bright_white;
+  background: $sky;
+  color: $white;
   padding: 1.2em !important;
   z-index: 100;
 }
@@ -54,23 +71,24 @@ h3 {
 }
 
 .k-nav .uk-nav-sub {
-  background: $sky_blue;
+  background: $sky;
 }
 
 .k-nav .uk-subnav-pill>.uk-active>* {
-  background: $bright_white;
-  color: $sky_blue;
+  background: $white;
+  color: $sky;
 }
 
 .k-nav a {
-  color: $bright_white;
+  color: $white;
 }
 
 .k-nav a:hover {
   background: rgba(255, 255, 255, 0.8);
-  color: $sky_blue;
+  color: $sky;
 }
 
+// Section Styles
 main>section {
   position: relative;
   text-align: center;
@@ -102,8 +120,8 @@ section p.first {
 }
 
 section.k-intro {
-  background: $sky_blue;
-  color: $bright_white;
+  background: $sky;
+  color: $white;
 }
 
 section.k-info {
@@ -207,7 +225,7 @@ section.k-info figure {
   opacity: 0.9;
 }
 
-.k-reward .k-intro {
+.k-reward.k-intro {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -217,14 +235,14 @@ section.k-info figure {
   background-image: asset-url("kids_sports_1140x500.jpg");
 }
 
-.k-reward .k-intro header {
+.k-reward.k-intro header {
   background: rgba(0, 0, 0, 0.8);
   padding: 2em;
   border-radius: 10px;
   -webkit-backdrop-filter: blur(10px);
 }
 
-.k-reward .k-intro header p {
+.k-reward.k-intro header p {
   opacity: 0.9;
 }
 
@@ -281,7 +299,7 @@ section.k-info figure {
 }
 
 .k-features {
-  background: $bright_white;
+  background: $white;
 }
 
 .k-features .k-feature {
@@ -349,7 +367,7 @@ main>section.k-fundamentals .k-teach {
 
 .k-news {
   min-height: 50vh;
-  background: #111;
+  background: $black;
 }
 
 .k-news article {
