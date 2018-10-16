@@ -405,3 +405,15 @@ main>section.k-fundamentals .k-teach {
     width: 100%;
   }
 }
+
+.k-overlay-menu {
+  background: rgba(27, 97, 255, .8);
+}
+
+.k-overlay-menu .uk-modal-dialog {
+  width: 320px;
+
+  a {
+    display: block;
+  }
+}
