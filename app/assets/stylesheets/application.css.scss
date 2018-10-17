@@ -347,6 +347,11 @@ section.k-info figure {
   top: 20px;
 }
 
+.k-fundamental h2 {
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
 main>section.k-fundamentals {
   background: #ccc;
   min-height: inherit !important;
@@ -449,15 +454,6 @@ main>section.k-fundamentals .k-teach {
   a {
     display: block;
   }
-}
-
-.k-grid-nomargin {
-  margin: 0;
-}
-
-.k-normal {
-  font-size: 1rem;
-  line-height: 1.5rem;
 }
 
 // Phone Portrait
