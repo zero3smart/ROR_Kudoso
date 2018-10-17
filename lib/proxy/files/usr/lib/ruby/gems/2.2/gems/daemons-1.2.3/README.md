@@ -1,206 +1,105 @@
-Ruby Daemons
-============
+# Kudoso Blog Theme
 
-Daemons provides an easy way to wrap existing ruby scripts (for example a self-written server)
-to be _run as a daemon_ and to be _controlled by simple start/stop/restart commands_.
+The kudoso blog theme is based on the kudoso site design with elements pulled from an existing ghost theme. Ghost makes use of the .hbs (handle bar ) file type.
 
-If you want, you can also use daemons to _run blocks of ruby code in a daemon process_ and to control
-these processes from the main application.
+## Ghost Theme References
 
-Besides this basic functionality, daemons offers many advanced features like _exception backtracing_
-and logging (in case your ruby script crashes) and _monitoring_ and automatic restarting of your processes
-if they crash.
+- [Handy Cheatsheet](http://www.gtheme.io/community/articles/1/ghost-theme-cheat-sheet)
 
-Basic Usage
------------
+## Theme Structure
 
-You can use Daemons in four different ways:
+- **blog.kudoso.com** (Theme)
+    - **assets**
+        - **styles**
+            - **css**
+                - application.css
+            - **sass**
+                - \_base.sass
+                - \_blog.sass
+                - \_config.sass
+                - \_footer.sass
+                - \_header.sass
+                - \_hero.sass
+                - \_home.sass
+                - \_intro.sass
+                - \_section.sass
+                - \_vendor.sass
+                - application.sass
+        - **images**
+        - **scripts**
+    - **kit_html**
+        - \_footer.kit
+        - \_header.kit
+        - \_news.kit
+        - \_paths.kit
+        - author.kit
+        - default.kit
+        - index.kit
+        - page.kit
+        - post.kit
+    - **partials**
+        - loop.hbs
+        - pagination.hbs
+    - author.hbs
+    - default.hbs
+    - index.hbs
+    - page.hbs
+    - post.hbs
+    - tag.hbs
+    - ...
 
-### 1. Create wrapper scripts for your server scripts or applications
+## Modifying the Theme
 
-Layout: suppose you have your self-written server `myserver.rb`:
+The current workflow makes use of [CodeKit](http://incident57.com/codekit/), a mac app for compiling and managing front-end projects. Each [.kit](http://incident57.com/codekit/help.html#kit) file gets compiled to another file type of file. In this case CodeKit is generating .hbs (handle bar source) files in the root folder. All of the sass files compile to the `application.css` file.
 
-``` ruby
-# this is myserver.rb
-# it does nothing really useful at the moment
 
-loop do
-  sleep(5)
-end
+## Ghost Cheat Sheet
+
+#### Ghost Blog Details
+- `{{@blog.url}}` The blog's URL as specified in the config.js file.
+- `{{@blog.title}}` The blog title.
+- `{{@blog.description}}` The blog's description
+- `{{@blog.logo}}` The blog's logo (img src)
+- `{{@blog.cover}}` The blog's cover image (img src)
+
+#### Ghost Post Details
+- `{{title}}` The post title
+- `{{url}}` This outputs the relative URL of a post when used with a post context. It also has the option to output an absolute URL: `{{url absolute="true"}}`.
+- `{{featured}}` Whether the post is featured post.
+- `{{date}}` This outputs the date an article is published. This function uses moment.js and allows options to format the date before outputting.
+- `{{excerpt}}` By default this outputs 50 words from the beginning of the post content and also strips out all HTML. You can customize the number of words used: `{{excerpt characters="140"}}`
+- `{{content}}` This outputs the post content. You can also use this instead of {{excerpt}} to show a certain number of words without stripping HTML: `{{content words="100"}}`
+- `{{tags}}` This outputs all the tags assigned to a post. Can be further customized to display a separator between each tag and also suffix and prefix
+- `{{tag.name}}` This outputs name of a tag on individual post page. Can also be used as `{{name}}` when used inside the block expressions `{{#tags}}` and `{{/tags}}`
+
+#### Ghost Author Details
+- `{{author.name}}` The post authors name
+- `{{author.bio}}` The Author's bio
+- `{{author.location}}` The Author's location
+- `{{author.email}}` The author's email depreciated since 0.5
+- `{{author.website}}` The author's website
+- `{{author.image}}` The author's avatar / profile image
+- `{{author.cover}}` The author's personal cover image
+
+#### Ghost Helpers
+- `{{meta_title}}` Displayed in the document header. Based on the context outputs either the title of an individual post or the blog title.
+- `{{meta_description}}` Currently displays only the blog description irrespective of the context.
+- `{{body}}` When "default.hbs" is used to abstract common elements, the body tags help mark the position where the contents of a page such as "index.hbs" or "posts.hbs" are inserted inside "default.hbs"
+- `{{body_class}}` Adds class name that can be targeted to style different pages. Currently outputs either "home-template", "post-template" or "archive-template". Additionally it also outputs "page" if the post is marked as a page and tag names based on the tags assigned to the page/post.
+- `{{post_class}}` Useful for styling different posts.
+- `{{has}}` helper has been created to provide a bit more flexibility in creating different layouts for posts in Ghost. The overall goal of the has helper is to allow you to ask questions about what the current context looks like:
+
 ```
-
-To use `myserver.rb` in a production environment, you need to be able to
-run `myserver.rb` in the _background_ (this means detach it from the console, fork it
-in the background, release all directories and file descriptors).
-
-Just create `myserver_control.rb` like this:
-
-``` ruby
-# this is myserver_control.rb
-require 'daemons'
-
-Daemons.run('myserver.rb')
+    {{#post}}
+        {{#has tag="photo"}}
+            ...do something if this post has a tag of photo...
+        {{else}}
+            ...do something if this posts doesn't have a tag of photo...
+        {{/has}}
+    {{/post}}
 ```
-
-And use it like this from the console:
-
-``` ruby
-$ ruby myserver_control.rb start
-    (myserver.rb is now running in the background)
-$ ruby myserver_control.rb restart
-    (...)
-$ ruby myserver_control.rb stop
+Ghost 0.5 is the improvement of {{has}} helper to support author attributes:
 ```
-
-For testing purposes you can even run `myserver.rb` _without forking_ in the background:
-
-``` ruby
-$ ruby myserver_control.rb run
-```
-
-An additional nice feature of Daemons is that you can pass _additional arguments_ to the script that
-should be daemonized by seperating them by two _hyphens_:
-
-``` ruby
-$ ruby myserver_control.rb start -- --file=anyfile --a_switch another_argument
-```
-
-
-### 2. Create wrapper scripts that include your server procs
-
-Layout: suppose you have some code you want to run in the background and control that background process
-from a script:
-
-``` ruby
-# this is your code
-# it does nothing really useful at the moment
-
-loop do
-  sleep(5)
-end
-```
-
-To run this code as a daemon create `myproc_control.rb` like this and include your code:
-
-``` ruby
-# this is myproc_control.rb
-require 'daemons'
-
-Daemons.run_proc('myproc.rb') do
-  loop do
-    sleep(5)
-  end
-end
-```
-
-And use it like this from the console:
-
-``` ruby
-$ ruby myproc_control.rb start
-    (myproc.rb is now running in the background)
-$ ruby myproc_control.rb restart
-    (...)
-$ ruby myproc_control.rb stop
-```
-
-For testing purposes you can even run `myproc.rb` _without forking_ in the background:
-
-``` ruby
-$ ruby myproc_control.rb run
-```
-
-### 3. Control a bunch of daemons from another application
-
-Layout: you have an application `my_app.rb` that wants to run a bunch of
-server tasks as daemon processes.
-
-``` ruby
-# this is my_app.rb
-require 'daemons'
-
-task1 = Daemons.call(:multiple => true) do
-  # first server task
-
-  loop do
-    conn = accept_conn()
-    serve(conn)
-  end
-end
-
-task2 = Daemons.call do
-  # second server task
-
-  loop do
-    something_different()
-  end
-end
-
-# the parent process continues to run
-
-# we can even control our tasks, for example stop them
-task1.stop
-task2.stop
-
-exit
-```
-
-### 4. Daemonize the currently running process
-
-Layout: you have an application `my_daemon.rb` that wants to run as a daemon
-(but without the ability to be controlled by daemons via start/stop commands)
-
-``` ruby
-# this is my_daemons.rb
-require 'daemons'
-
-# Initialize the app while we're not a daemon
-init()
-
-# Become a daemon
-Daemons.daemonize
-
-# The server loop
-loop do
-  conn = accept_conn()
-  serve(conn)
-end
-```
-
-For further documentation, refer to the module documentation of Daemons.
-
-Displaying daemon status
-------------------------
-
-When daemonizing a process using a wrapper script, as examples 1 and 2 above,
-the status can be shown using
-
-``` ruby
-$ ruby myproc_control.rb status
-```
-
-By default this will display whether or not the daemon is running and, if it
-is, its PID.
-
-A custom message can be shown with
-
-``` ruby
-def custom_show_status(app)
-  # Display the default status information
-  app.default_show_status
-
-  puts
-  puts "PS information"
-  system("ps -p #{app.pid.pid.to_s}")
-
-  puts
-  puts "Size of log files"
-  system("du -hs /path/to/logs")
-end
-
-Daemons.run('myserver.rb', { show_status_callback: :custom_show_status })
-```
-
-Author
-------
-
-Written 2005-2015 by Thomas Uehlinger <thomas.uehlinger@gmail.com>, 2014-2015 by Aaron Stone <aaron@serendipity.cx>.
+    {{#post}}
+        {{#has author="Joe Bloggs"}}
+            ...do something if the author is
