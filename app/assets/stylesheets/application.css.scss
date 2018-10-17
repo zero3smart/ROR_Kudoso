@@ -451,6 +451,15 @@ main>section.k-fundamentals .k-teach {
   }
 }
 
+.k-grid-nomargin {
+  margin: 0;
+}
+
+.k-normal {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
 // Phone Portrait
 @media screen and (max-width: 480px) {
   .k-page-header.uk-active {
