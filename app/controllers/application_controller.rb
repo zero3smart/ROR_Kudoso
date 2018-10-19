@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  rescue_from ActionController::RoutingError, :with =>  :error_render_method
-
   before_filter :restrict_access
 
   before_filter do
@@ -74,7 +72,21 @@ class ApplicationController < ActionController::Base
 
     flash[:error] = message
     redirect_to (member_signed_in? ? [current_member.family, current_member] : new_user_session_path) #and return
+  end
 
+  rescue_from JSON::ParserError do |ex|
+    messages = init_messages
+    messages[:error] << 'Error parsing JSON'
+    render :json => { :messages => messages }, :status => 400
+  end
+
+  rescue_from ActionController::RoutingError do |ex|
+    messages = init_messages
+    messages[:error] << error
+    respond_to do |format|
+      format.json { render :json => { messages: messages }, :status => :not_found }
+      format.html { render file: 'public/404.html' }
+    end
   end
 
   def current_ability
@@ -91,18 +103,6 @@ class ApplicationController < ActionController::Base
     messages[:warning] = Array.new
     messages[:error] = Array.new
     return messages
-  end
-
-  def error_render_method(error = 'The path you requested was not found')
-
-    messages = init_messages
-    messages[:error] << error
-    respond_to do |format|
-      format.json { render :json => { messages: messages }, :status => :not_found }
-      format.html { render file: 'public/404.html' }
-    end
-
-    true
   end
 
   protected
@@ -127,6 +127,15 @@ class ApplicationController < ActionController::Base
         username == "kudoso" && password == "Launching2015!"
       end
     end
+  end
+
+  def parse_image_data(image_data)
+    logger.info "Parsing image data..."
+    data = StringIO.new(Base64.decode64(image_data["content"]))
+    data.class.class_eval {attr_accessor :original_filename, :content_type}
+    data.original_filename = Time.now.to_i.to_s + "." + image_data['content-type'].split('/')[1]
+    data.content_type = image_data['content-type']
+    return data
   end
 
 

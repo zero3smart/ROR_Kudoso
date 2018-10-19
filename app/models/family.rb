@@ -7,10 +7,13 @@ class Family < ActiveRecord::Base
   has_one :screen_time_schedule
   belongs_to :primary_contact, class_name: 'User'
   has_many :family_device_categories, dependent: :destroy
+  has_many :routers
 
   accepts_nested_attributes_for :members, :reject_if => :all_blank, :allow_destroy => true
 
   before_create { self.secure_key = SecureRandom.base64 }
+
+  validate :validate_timezone
 
   def kids
     members.where('parent IS NOT true')
@@ -28,6 +31,13 @@ class Family < ActiveRecord::Base
     summary
   end
 
+<<<<<<< HEAD
+=======
+  def long_label
+    "(#{self.id}) #{self.name}"
+  end
+
+>>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
   def self.memorialize_todos(for_date = Date.yesterday)
     for_date = for_date.end_of_day
     @families = self.includes(:members => {:todo_schedules => [:my_todos, :schedule_rrules]})
@@ -112,15 +122,32 @@ class Family < ActiveRecord::Base
     rec = Set.new
 
     devices.each do |device|
-      device.device_type.activity_templates.each { |activity_template| rec << activity_template }
+      device.device_type.activity_templates.each { |activity_template| rec << activity_template } if device.device_type
     end
 
     rec.to_a
   end
 
   def create_mobicip_account
+    return true if self.mobicip_id.present? && self.mobicip_password.present?
     mobicip = Mobicip.new
     result = mobicip.create_account(self)
+    return result && self.mobicip_id.present? && self.mobicip_password.present?
   end
+
+  def active?
+    #TODO: Implement this
+    true
+  end
+
+
+  private
+
+  def validate_timezone
+    timezones = ActiveSupport::TimeZone.us_zones.collect{|tz| tz.name }
+    errors.add(:timezone, "is not a valid US Time Zone") unless timezone.nil? || timezones.include?(timezone)
+  end
+
+
 
 end

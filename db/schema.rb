@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150706220042) do
+=======
+ActiveRecord::Schema.define(version: 20150921130407) do
+>>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +101,73 @@ ActiveRecord::Schema.define(version: 20150706220042) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "app_devices", force: :cascade do |t|
+    t.integer  "app_id"
+    t.integer  "device_id"
+    t.string   "version"
+    t.datetime "installed_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "app_members", force: :cascade do |t|
+    t.integer  "app_id"
+    t.integer  "member_id"
+    t.boolean  "restricted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "applogs", force: :cascade do |t|
+    t.integer  "app_id"
+    t.integer  "device_id"
+    t.integer  "member_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "applogs", ["app_id"], name: "index_applogs_on_app_id", using: :btree
+  add_index "applogs", ["device_id"], name: "index_applogs_on_device_id", using: :btree
+  add_index "applogs", ["member_id"], name: "index_applogs_on_member_id", using: :btree
+
+  create_table "apps", force: :cascade do |t|
+    t.string   "name"
+    t.string   "uuid"
+    t.string   "publisher"
+    t.string   "url"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "icon_file_name"
+    t.string   "icon_content_type"
+    t.integer  "icon_file_size"
+    t.datetime "icon_updated_at"
+  end
+
+  create_table "avatars", force: :cascade do |t|
+    t.string   "name"
+    t.string   "gender"
+    t.integer  "theme_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  create_table "commands", force: :cascade do |t|
+    t.integer  "device_id"
+    t.string   "name"
+    t.boolean  "executed"
+    t.datetime "sent"
+    t.integer  "status"
+    t.string   "result"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "contact_types", force: :cascade do |t|
@@ -202,6 +273,18 @@ ActiveRecord::Schema.define(version: 20150706220042) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "uuid"
+    t.string   "udid"
+    t.string   "wifi_mac"
+    t.datetime "last_contact"
+    t.string   "os_version"
+    t.string   "build_version"
+    t.string   "product_name"
+    t.string   "mobicip_device_id"
+    t.string   "device_name"
+    t.string   "last_ip"
+    t.string   "mac_address"
+    t.integer  "router_id"
+    t.string   "secure_key"
   end
 
   add_index "devices", ["device_type_id"], name: "index_devices_on_device_type_id", using: :btree
@@ -265,6 +348,12 @@ ActiveRecord::Schema.define(version: 20150706220042) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+<<<<<<< HEAD
+=======
+    t.string   "mobicip_filter"
+    t.integer  "theme_id"
+    t.string   "gender",               limit: 1
+>>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
   end
 
   add_index "members", ["family_id"], name: "index_members_on_family_id", using: :btree
@@ -322,6 +411,55 @@ ActiveRecord::Schema.define(version: 20150706220042) do
     t.datetime "updated_at"
   end
 
+  create_table "plugs", force: :cascade do |t|
+    t.string   "mac_address"
+    t.string   "serial"
+    t.string   "secure_key"
+    t.datetime "last_seen"
+    t.string   "last_known_ip"
+    t.boolean  "registered"
+    t.integer  "device_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "router_firmwares", force: :cascade do |t|
+    t.integer  "router_model_id"
+    t.string   "version"
+    t.text     "notes"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "checksum"
+    t.string   "firmware_file_name"
+    t.string   "firmware_content_type"
+    t.integer  "firmware_file_size"
+    t.datetime "firmware_updated_at"
+    t.string   "firmware_fingerprint"
+  end
+
+  create_table "router_models", force: :cascade do |t|
+    t.string   "name"
+    t.string   "num"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "routers", force: :cascade do |t|
+    t.integer  "router_model_id"
+    t.integer  "router_firmware_id"
+    t.integer  "family_id"
+    t.string   "last_known_ip"
+    t.datetime "last_seen"
+    t.datetime "last_firmware_update"
+    t.string   "mac_address"
+    t.string   "secure_key"
+    t.boolean  "registered"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "routers", ["mac_address"], name: "index_routers_on_mac_address", using: :btree
+
   create_table "schedule_rrules", force: :cascade do |t|
     t.integer  "todo_schedule_id"
     t.string   "rrule"
@@ -365,6 +503,16 @@ ActiveRecord::Schema.define(version: 20150706220042) do
   add_index "st_overrides", ["member_id", "date"], name: "index_st_overrides_on_member_id_and_date", using: :btree
   add_index "st_overrides", ["member_id"], name: "index_st_overrides_on_member_id", using: :btree
 
+  create_table "themes", force: :cascade do |t|
+    t.string   "name"
+    t.string   "primary_color",      limit: 7
+    t.string   "secondary_color",    limit: 7
+    t.string   "primary_bg_color",   limit: 7
+    t.string   "secondary_bg_color", limit: 7
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
   create_table "ticket_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -379,15 +527,6 @@ ActiveRecord::Schema.define(version: 20150706220042) do
     t.datetime "date_openned"
     t.datetime "date_closed"
     t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "todo_groups", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "rec_min_age"
-    t.integer  "rec_max_age"
-    t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -478,4 +617,7 @@ ActiveRecord::Schema.define(version: 20150706220042) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
+  add_foreign_key "applogs", "apps"
+  add_foreign_key "applogs", "devices"
+  add_foreign_key "applogs", "members"
 end

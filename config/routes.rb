@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
 
+<<<<<<< HEAD
   apipie
   resources :activity_template_device_types
+=======
+
+
+  apipie
+  resources :avatars
+>>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
   resources :partners
   resources :contacts
 
@@ -21,9 +28,8 @@ Rails.application.routes.draw do
 
   resources :activity_templates
 
-  resources :device_types
-
   resources :todo_templates
+  resources :themes
 
 
 
@@ -64,20 +70,39 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resources :activity_templates
+    resources :activity_template_device_types
+    resources :activity_types
     resources :api_devices
+    resources :apps
+    resources :avatars
     resources :contacts
     resources :families
     resources :todo_templates
     resources :devices
     resources :device_types
     resources :todo_templates
-    resources :activity_templates
     resources :tickets
+    resources :plugs
+    resources :router_firmwares
+    resources :router_models
+    resources :routers
+    resources :themes
   end
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
+      resources :avatars
+      resources :device_types
+      resources :themes
       resources :sessions
+      resources :plugs
+      resources :routers do
+        member do
+          get :devices
+          post :device
+        end
+      end
       resources :users do
         collection do
           post :reset_password
@@ -86,7 +111,18 @@ Rails.application.routes.draw do
       resources :todo_templates
       resources :families do
         resources :todos
+<<<<<<< HEAD
         resources :members do
+=======
+        resources :devices do
+          resources :apps_devices, path: :apps
+          resources :members do
+            resources :apps_members, path: :apps
+          end
+        end
+        resources :members do
+          resources :apps_members, path: :apps
+>>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
           resources :my_todos do
             member do
               post :verify
@@ -100,6 +136,13 @@ Rails.application.routes.draw do
           end
         end
       end
+      resources :timezones
+      post "/devices/:uuid/deviceDidRegister", to: 'devices#deviceDidRegister'
+      patch "/devices/:udid/status", to: 'devices#status'
+      post "/devices/record", to: 'devices#record'
+      post "/devices/:id/apps", to: 'devices#post_apps'
+      post "/devices/:id/apps/log", to: 'devices#post_applog'
+      get "/devices/:id/apps", to: 'devices#get_apps'
     end
   end
 
@@ -107,19 +150,18 @@ Rails.application.routes.draw do
 
   get 'tos', to: 'home#tos'
   get 'privacy', to: 'home#privacy'
-  get 'contact', to: 'home#contact'
+  get 'contact_us', to: 'home#contact_us'
   get 'support', to: 'home#support'
   get 'newsletter', to: 'home#newsletter'
-  get 'landing', to: 'home#landing'
   get 'privacy', to: 'home#privacy'
-  get 'screen_time_limits', to: 'home#screen_time_limits'
-  get 'content_filtering', to: 'home#content_filtering'
-  get 'kudos', to: 'home#kudos'
-  get 'rewards', to: 'home#rewards'
+  get 'limit', to: 'home#limit'
+  get 'protect', to: 'home#protect'
+  get 'teach', to: 'home#teach'
+  get 'reward', to: 'home#reward'
   get 'wizard', to: 'wizard#index'
   put 'wizard', to: 'wizard#update'
   post 'wizard', to: 'wizard#create'
-  root to: 'home#landing'
+  root to: 'home#index'
 
   match "*path", to: "errors#catch_404", via: :all
 

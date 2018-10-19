@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 
 # Core
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.4'
 gem 'pg'
 gem 'responders', '~> 2.0'
 gem 'railties'
@@ -29,7 +29,13 @@ gem 'groupdate' # adds group_by_date functions
 gem 'best_in_place' #adds in place editing features
 gem 'kaminari'
 gem 'modernizr-rails'
+<<<<<<< HEAD
 gem 'paperclip', "~> 4.3"
+=======
+gem 'paperclip'
+gem 'aws-sdk-v1'
+gem 'autoprefixer-rails', '~> 6.0.3'
+>>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
@@ -48,7 +54,7 @@ gem 'apipie-rails', github: 'Apipie/apipie-rails', ref: '928bd858fd14ec67eeb9483
 # User management
 gem 'devise'
 gem 'omniauth'
-gem 'cancan'
+gem 'cancancan'
 gem 'chronic'
 gem 'recurring_select' # for schedules
 gem 'agilecrm-wrapper' #for AgileCRM
@@ -79,6 +85,9 @@ group :development, :test do
   gem 'parallel_tests'
   gem 'zeus-parallel_tests'
   gem 'binding_of_caller'
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'pry-stack_explorer'
 end
 
 group :development do

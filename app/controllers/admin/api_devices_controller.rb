@@ -1,44 +1,74 @@
-class Admin::ApiDevicesController < AdminController
-  load_and_authorize_resource
+class Admin::DevicesController < AdminController
+  before_action :set_device, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
-
+  # GET /admin/devices
+  # GET /admin/devices.json
   def index
-    @api_devices = ApiDevice.all
-    respond_with(@api_devices)
+    @devices = Device.all.order(:id)
   end
 
+  # GET /admin/devices/1
+  # GET /admin/devices/1.json
   def show
-    respond_with(@api_device)
   end
 
+  # GET /admin/devices/new
   def new
-    @api_device = ApiDevice.new
-    respond_with(@api_device)
+    @device = Device.new
   end
 
+  # GET /admin/devices/1/edit
   def edit
   end
 
+  # POST /admin/devices
+  # POST /admin/devices.json
   def create
-    @api_device = ApiDevice.new(api_device_params)
-    @api_device.save
-    respond_with([:admin, @api_device])
+    @device = Device.new(router_params)
+
+    respond_to do |format|
+      if @router.save
+        format.html { redirect_to admin_routers_url, notice: 'Device was successfully created.' }
+        format.json { render :show, status: :created, location: @device }
+      else
+        format.html { render :new }
+        format.json { render json: @device.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
+  # PATCH/PUT /admin/devices/1
+  # PATCH/PUT /admin/devices/1.json
   def update
-    @api_device.update(api_device_params)
-    respond_with([:admin, @api_device])
+    respond_to do |format|
+      if @device.update(router_model_params)
+        format.html { redirect_to admin_routers_url, notice: 'Device was successfully updated.' }
+        format.json { render :show, status: :ok, location: @device }
+      else
+        format.html { render :edit }
+        format.json { render json: @device.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
+  # DELETE /admin/devices/1
+  # DELETE /admin/devices/1.json
   def destroy
-    @api_device.destroy
-    respond_with([:admin, @api_device])
+    @device.destroy
+    respond_to do |format|
+      format.html { redirect_to admin_routers_url, notice: 'Device was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_device
+      @device = Device.find(params[:id])
+    end
 
-    def api_device_params
-      params.require(:api_device).permit(:device_token, :name, :expires_at)
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def device_params
+      params.require(:device).permit(:name, :device_type_id, :family_id, :managed, :management_id, :primary_member_id)
     end
 end

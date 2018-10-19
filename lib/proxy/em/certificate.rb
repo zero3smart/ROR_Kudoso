@@ -1,7 +1,7 @@
 require 'openssl'
 require 'socket'
 
-# https://github.com/cortesi/mitmproxy/blob/master/doc-src/howmitmproxy.html
+# https://github.com/mitmproxy/mitmproxy/blob/master/docs/howmitmproxy.rst
 
 class Certificate
   KEY_NAME = 'root'

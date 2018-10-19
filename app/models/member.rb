@@ -7,16 +7,30 @@ class Member < ActiveRecord::Base
   has_many :primary_devices, class_name: 'Device', foreign_key: 'primary_member_id', dependent: :nullify
   has_many :activities, dependent: :destroy, inverse_of: :member
   has_many :authorized_activities, class_name: 'Activity', foreign_key: :created_by_id, dependent: :nullify, inverse_of: :created_by
-  has_many :screen_times
-  has_many :st_overrides
-  has_one :screen_time_schedule
-  has_many :api_keys
+  has_many :screen_times, dependent: :destroy
+  has_many :st_overrides, dependent: :destroy
+  has_one :screen_time_schedule, dependent: :destroy
+  belongs_to :theme
+  has_many :api_keys, dependent: :destroy
+  has_many :app_members, dependent: :destroy
+  has_many :apps, through: :app_members
+  has_many :applogs, dependent: :nullify
+
+
+
+  has_attached_file :avatar, :styles => { :large => "300x300#", :medium => "200x200#", :small => "100x100#", :thumb => "60x60#" }, :default_url => "/images/:style/missing.png"
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+  validates_inclusion_of :gender, :in => %w( m f ), allow_blank: :true
+  validates_inclusion_of :mobicip_filter, :in => %w( Monitor Strict Moderate Mature ), allow_blank: :true
 
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
   # ensure we have a secure password even if the user has no password
   before_save :secure_password
+  before_create do
+    self.theme_id ||= Theme.first.try(:id)
+  end
 
 
   # Include default devise modules. Others available are:
@@ -37,7 +51,11 @@ class Member < ActiveRecord::Base
 
 
   def as_json(options = {})
+<<<<<<< HEAD
     super({methods: [ :age, :avatar_urls, :screen_time, :used_screen_time], except: [:avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at] }.merge(options))
+=======
+    super({methods: [ :age, :avatar_urls, :screen_time, :used_screen_time], except: [:avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at], include: [ {theme: {except: [:created_at, :updated_at] } }] }.merge(options))
+>>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
   end
 
 
@@ -59,7 +77,13 @@ class Member < ActiveRecord::Base
   def avatar_urls
     urls = Hash.new
     if self.avatar.exists?
+<<<<<<< HEAD
       urls[:medium] = self.avatar.url(:medium)
+=======
+      urls[:large] = self.avatar.url(:large)
+      urls[:medium] = self.avatar.url(:medium)
+      urls[:small] = self.avatar.url(:small)
+>>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
       urls[:thumb] = self.avatar.url(:thumb)
     end
     return urls
@@ -228,7 +252,37 @@ class Member < ActiveRecord::Base
     key
   end
 
+  def create_mobicip_profile
+    return true if self.mobicip_profile.present?
+    return false if self.family.mobicip_id.blank?
+    mobicip = Mobicip.new
+    result = mobicip.login(self.family)
+    result = mobicip.createProfile(self, filter_level_id) if result
+    return result && self.mobicip_profile.present?
+  end
+
+  def filter_level_id
+
+    # # The default settings for this filter level are: 4) Monitor, 5) Strict, 6) Moderate, 7) Mature
+    case self.mobicip_filter.downcase
+      when "monitor"
+        return 4
+      when "strict"
+        return 5
+      when "moderate"
+        return 6
+      when "mature"
+        return 7
+      else
+        return 4
+    end
+  end
+
+
   protected
+
+
+
 
   def secure_password
     unless self.password.nil? || self.password_confirmation.nil?

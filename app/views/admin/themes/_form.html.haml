@@ -1,0 +1,12 @@
+= simple_form_for([:admin, @theme]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :primary_color
+    = f.input :secondary_color
+    = f.input :primary_bg_color
+    = f.input :secondary_bg_color
+
+  .form-actions
+    = f.button :submit
