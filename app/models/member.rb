@@ -23,13 +23,21 @@ class Member < ActiveRecord::Base
   validates_inclusion_of :gender, :in => %w( m f ), allow_blank: :true
   validates_inclusion_of :mobicip_filter, :in => %w( Monitor Strict Moderate Mature ), allow_blank: :true
 
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
-  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
-
   # ensure we have a secure password even if the user has no password
   before_save :secure_password
-  before_create do
+  after_create do
+    unless self.avatar.exists?
+      if self.gender.present?
+        suggested_avatar = Avatar.where(gender: self.gender).all.sample
+        suggested_avatar ||= Avatar.all.sample
+        unless suggested_avatar.nil?
+          self.avatar = suggested_avatar.image
+          self.theme_id = suggested_avatar.theme_id
+        end
+      end
+    end
     self.theme_id ||= Theme.first.try(:id)
+    self.save
   end
 
 
@@ -51,11 +59,7 @@ class Member < ActiveRecord::Base
 
 
   def as_json(options = {})
-<<<<<<< HEAD
-    super({methods: [ :age, :avatar_urls, :screen_time, :used_screen_time], except: [:avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at] }.merge(options))
-=======
     super({methods: [ :age, :avatar_urls, :screen_time, :used_screen_time], except: [:avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at], include: [ {theme: {except: [:created_at, :updated_at] } }] }.merge(options))
->>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
   end
 
 
@@ -77,13 +81,9 @@ class Member < ActiveRecord::Base
   def avatar_urls
     urls = Hash.new
     if self.avatar.exists?
-<<<<<<< HEAD
-      urls[:medium] = self.avatar.url(:medium)
-=======
       urls[:large] = self.avatar.url(:large)
       urls[:medium] = self.avatar.url(:medium)
       urls[:small] = self.avatar.url(:small)
->>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
       urls[:thumb] = self.avatar.url(:thumb)
     end
     return urls
