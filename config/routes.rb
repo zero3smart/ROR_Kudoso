@@ -1,14 +1,9 @@
 Rails.application.routes.draw do
 
-<<<<<<< HEAD
-  apipie
-  resources :activity_template_device_types
-=======
 
 
   apipie
   resources :avatars
->>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
   resources :partners
   resources :contacts
 
@@ -111,9 +106,6 @@ Rails.application.routes.draw do
       resources :todo_templates
       resources :families do
         resources :todos
-<<<<<<< HEAD
-        resources :members do
-=======
         resources :devices do
           resources :apps_devices, path: :apps
           resources :members do
@@ -122,7 +114,6 @@ Rails.application.routes.draw do
         end
         resources :members do
           resources :apps_members, path: :apps
->>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
           resources :my_todos do
             member do
               post :verify
@@ -158,6 +149,7 @@ Rails.application.routes.draw do
   get 'protect', to: 'home#protect'
   get 'teach', to: 'home#teach'
   get 'reward', to: 'home#reward'
+  get 'ohana', to: 'home#ohana'
   get 'wizard', to: 'wizard#index'
   put 'wizard', to: 'wizard#update'
   post 'wizard', to: 'wizard#create'

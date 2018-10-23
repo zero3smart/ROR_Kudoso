@@ -215,6 +215,22 @@ section.k-info figure {
 .k-reward.k-intro header p {
     opacity: 0.9; }
 
+//
+.k-ohana.k-intro {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  padding-top: 7%;
+  padding-bottom: 7%;
+  background-image: asset-url("ohana.jpg"); }
+.k-ohana.k-intro header {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 2em;
+  border-radius: 10px;
+  -webkit-backdrop-filter: blur(10px); }
+.k-ohana.k-intro header p {
+  opacity: 0.9; }
+
 .k-home .k-hero {
     background-size: cover;
     background-repeat: no-repeat;
@@ -222,7 +238,7 @@ section.k-info figure {
     min-height: 100vh;
     padding-top: 7%;
     padding-bottom: 7%;
-    background-image: asset-url("RONyPwknRQOO3ag4xf3R_Kinsey.jpg");
+    background-image: url(https://images.unsplash.com/reserve/RONyPwknRQOO3ag4xf3R_Kinsey.jpg?q=80&fm=jpg&s=04b191d88d2ab0f8c66a46d1e33a902d);
 }
 
 .k-footer {
@@ -343,6 +359,20 @@ main > section.k-fundamentals .k-teach {
 .k-overlay-menu .uk-modal-dialog {
     width: 320px;
     a { display: block; }
+}
+
+.k-grid-nomargin {
+  margin: 0;
+}
+
+.k-normal {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.k-large-text {
+  font-size: 1.8rem;
+  line-height: 2.2rem;
 }
 
 // Phone Portrait
