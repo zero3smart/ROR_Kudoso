@@ -29,9 +29,13 @@ gem 'groupdate' # adds group_by_date functions
 gem 'best_in_place' #adds in place editing features
 gem 'kaminari'
 gem 'modernizr-rails'
+<<<<<<< HEAD
+gem 'paperclip', "~> 4.3"
+=======
 gem 'paperclip'
 gem 'aws-sdk-v1'
 gem 'autoprefixer-rails', '~> 6.0.3'
+>>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 

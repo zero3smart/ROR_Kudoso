@@ -1,5 +1,48 @@
 class ContactsController < ApplicationController
 
+  skip_before_action :verify_authenticity_token, only: :index # for JSONP ajax from blog.kudoso.com
+
+  def index
+    @primary_email = params[:contact].try(:[], :emails_attributes).try(:[], "0").try(:[],:address)
+    params[:contact].delete(:emails_attributes)
+    if @primary_email.blank?
+      respond_to do |format|
+        render json: {error: 'All information is required'}, :callback => params[:callback], :status => 400
+      end
+    else
+      begin
+        agile_contact = AgileCRMWrapper::Contact.search_by_email( @primary_email )
+        if @agile_contact.nil?
+          agile_contact = AgileCRMWrapper::Contact.create( email: @primary_email,
+                                                           first_name: params[:contact][:first_name],
+                                                           last_name: params[:contact][:last_name] )
+        else
+          if params[:contact] &&  params[:contact][:first_name] && params[:contact][:last_name]
+            agile_contact.update(first_name: params[:contact][:first_name], last_name: params[:contact][:last_name])
+          end
+        end
+      rescue AgileCRMWrapper::BadRequest
+        logger.debug "AgileCRMWrapper: BadRequest for email: #{@primary_email}"
+      end
+      @email = Email.find_by(address: @primary_email)
+      @email ||= Email.create(address: @primary_email, is_primary: true)
+      @contact = @email.try(:contact)
+      if @contact.nil?
+        @contact = Contact.create( contact_params )
+        @email.contact_id = @contact.id
+        @email.save
+      else
+        @contact.update_attributes( contact_params )
+        if @contact.primary_email.blank?
+          @email.update_attribute(:is_primary, true)
+        end
+      end
+      render json: {}, :callback => params[:callback], :status => 200
+    end
+
+
+
+  end
 
   def create
     @primary_email = params[:contact].try(:[], :emails_attributes).try(:[], "0").try(:[],:address)

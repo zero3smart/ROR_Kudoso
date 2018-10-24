@@ -148,19 +148,10 @@ section.k-info figure {
 }
 
 .k-home .k-intro header {
-<<<<<<< HEAD
-  background: rgba(0, 0, 0, 0.8);
-  padding: 2em;
-  border-radius: 10px;
-  -webkit-backdrop-filter: blur(10px);
-}
-
-=======
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
     padding: 2em;
     border-radius: 10px;
     -webkit-backdrop-filter: blur(10px); }
->>>>>>> 24a4973466f979a60c0b255e2cd42263b6dd36db
 .k-home .k-intro header p {
     opacity: 0.9; }
 
@@ -172,19 +163,10 @@ section.k-info figure {
     padding-bottom: 7%;
     background-image: asset-url("mom_ipad_detail_1140x500.jpg"); }
 .k-protect.k-intro header {
-<<<<<<< HEAD
-  background: rgba(0, 0, 0, 0.8);
-  padding: 2em;
-  border-radius: 10px;
-  -webkit-backdrop-filter: blur(10px);
-}
-
-=======
     background: rgba(0, 0, 0, 0.5);
     padding: 2em;
     border-radius: 10px;
     -webkit-backdrop-filter: blur(10px); }
->>>>>>> 24a4973466f979a60c0b255e2cd42263b6dd36db
 .k-protect.k-intro header p {
     opacity: 0.9; }
 
@@ -196,19 +178,10 @@ section.k-info figure {
     padding-bottom: 7%;
     background-image: asset-url("kids_gaming_1140x500.jpg"); }
 .k-limit.k-intro header {
-<<<<<<< HEAD
-  background: rgba(0, 0, 0, 0.8);
-  padding: 2em;
-  border-radius: 10px;
-  -webkit-backdrop-filter: blur(10px);
-}
-
-=======
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
     padding: 2em;
     border-radius: 10px;
     -webkit-backdrop-filter: blur(10px); }
->>>>>>> 24a4973466f979a60c0b255e2cd42263b6dd36db
 .k-limit.k-intro header p {
     opacity: 0.9; }
 
@@ -220,19 +193,10 @@ section.k-info figure {
     padding-bottom: 7%;
     background-image: asset-url("kids_dishes_1140x500.jpg"); }
 .k-teach.k-intro header {
-<<<<<<< HEAD
-  background: rgba(0, 0, 0, 0.8);
-  padding: 2em;
-  border-radius: 10px;
-  -webkit-backdrop-filter: blur(10px);
-}
-
-=======
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
     padding: 2em;
     border-radius: 10px;
     -webkit-backdrop-filter: blur(10px); }
->>>>>>> 24a4973466f979a60c0b255e2cd42263b6dd36db
 .k-teach.k-intro header p {
     opacity: 0.9; }
 
@@ -252,23 +216,13 @@ section.k-info figure {
     opacity: 0.9; }
 
 .k-home .k-hero {
-<<<<<<< HEAD
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  min-height: 100vh;
-  padding-top: 7%;
-  padding-bottom: 7%;
-  background-image: asset-url("RONyPwknRQOO3ag4xf3R_Kinsey.jpg");
-=======
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
     min-height: 100vh;
     padding-top: 7%;
     padding-bottom: 7%;
-    background-image: asset-url("RONyPwknRQOO3ag4xf3R_Kinsey.jpg");
->>>>>>> 24a4973466f979a60c0b255e2cd42263b6dd36db
+    background-image: url(https://images.unsplash.com/reserve/RONyPwknRQOO3ag4xf3R_Kinsey.jpg?q=80&fm=jpg&s=04b191d88d2ab0f8c66a46d1e33a902d);
 }
 
 .k-footer {
@@ -391,42 +345,14 @@ main > section.k-fundamentals .k-teach {
     a { display: block; }
 }
 
-.k-video-button {
-    background: none;
-    border: 2px solid white;
-    color: white;
-    padding: 5px 30px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-
-    &:hover {
-        background: white !important;
-        color: black;
-    }
+.k-grid-nomargin {
+  margin: 0;
 }
 
-.k-video-button {
-  background: none;
-  border: 2px solid white;
-  color: white;
-  padding: 5px 30px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-
-  &:hover {
-    background: white !important;
-    color: black;
-  }
+.k-normal {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
-
-
-
-// Phone Portrait
-@media screen and (max-width: 480px) {
-  .k-page-header.uk-active {
-    padding: 0 !important;
-    max-height: 46px;
-
 
 // Phone Portrait
 @media screen and (max-width: 480px) {

@@ -56,10 +56,7 @@ module Api
       param :name, String, desc: 'The family name'
       param :default_time, Integer, desc: 'Default screen time per day (in minutes)'
       param :default_filter, [ 'strict', 'moderate', 'mature', 'monitor'], desc: 'Default content filtering for new family members'
-<<<<<<< HEAD
-=======
       param :timezone, String, desc: 'Default time zone as a string for the family.  For a list of valid time zones see the /timezones API'
->>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
       param :device_categories, Hash, desc: 'Hash containing device category IDs as the key, and the number of devices as the value; ex: {"device_category_1" : 2, "device_category_2" : 1}'
       example '  {"id"=>1, "name"=>"Test Family", "primary_contact_id"=>3, "created_at"=>Thu, 02 Jul 2015 10:15:52 MDT -06:00, "updated_at"=>Thu, 02 Jul 2015 10:22:23 MDT -06:00, "memorialized_date"=>Wed, 01 Jul 2015, "timezone"=>nil, "default_screen_time"=>2, "default_filter"=>"strict", "secure_key"=>"oz3zBBWWqpJAshu/S3ZgmA==", "device_categories"=>{"device_category_1"=>{:amount=>2, "device_category_name"=>"Mobile Devices"}, "device_category_2"=>{:amount=>1, "device_category_name"=>"Computers"}, "device_category_3"=>{:amount=>2, "device_category_name"=>"Game Consoles"}, "device_category_4"=>{:amount=>2, "device_category_name"=>"Video Devices"}}}  '
 

@@ -30,10 +30,14 @@ module Api
           @family = Family.find(params[:family_id])
           if @current_user.try(:admin) || (@current_member.try(:family) == @family && @current_member.try(:parent) ) || @current_member.id == params[:id]
             @member = @family.members.find(params[:member_id])
+<<<<<<< HEAD
+            render :json => { my_todos: @member.todos(params[:start_date] || Date.today, params[:end_date] || Date.today), :messages => messages }, :status => 200
+=======
             params[:start_date] ||= Date.today
             params[:end_date] ||= Date.today
             logger.debug "Returning JSON: #{@member.todos(params[:start_date], params[:end_date]).as_json}"
             render :json => { my_todos: @member.todos(params[:start_date], params[:end_date]), :messages => messages }, :status => 200
+>>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
           else
             messages[:error] << 'You are not authorized to do this.'
             render :json => { :messages => messages }, :status => 403

@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20150706220042) do
+=======
 ActiveRecord::Schema.define(version: 20150921130407) do
+>>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -344,9 +348,12 @@ ActiveRecord::Schema.define(version: 20150921130407) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+<<<<<<< HEAD
+=======
     t.string   "mobicip_filter"
     t.integer  "theme_id"
     t.string   "gender",               limit: 1
+>>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
   end
 
   add_index "members", ["family_id"], name: "index_members_on_family_id", using: :btree
