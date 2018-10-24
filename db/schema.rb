@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20150706220042) do
-=======
-ActiveRecord::Schema.define(version: 20150921130407) do
->>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
+ActiveRecord::Schema.define(version: 20151015173149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -323,6 +319,17 @@ ActiveRecord::Schema.define(version: 20150921130407) do
     t.datetime "updated_at",                     null: false
   end
 
+  create_table "invoices", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "closed_on"
+    t.text     "description"
+    t.integer  "amount"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "invoices", ["user_id"], name: "index_invoices_on_user_id", using: :btree
+
   create_table "members", force: :cascade do |t|
     t.string   "username"
     t.date     "birth_date"
@@ -348,12 +355,9 @@ ActiveRecord::Schema.define(version: 20150921130407) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-<<<<<<< HEAD
-=======
     t.string   "mobicip_filter"
     t.integer  "theme_id"
     t.string   "gender",               limit: 1
->>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
   end
 
   add_index "members", ["family_id"], name: "index_members_on_family_id", using: :btree
@@ -404,6 +408,16 @@ ActiveRecord::Schema.define(version: 20150921130407) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "payments", force: :cascade do |t|
+    t.integer  "invoice_id"
+    t.string   "description"
+    t.integer  "amount"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "payments", ["invoice_id"], name: "index_payments_on_invoice_id", using: :btree
 
   create_table "phone_types", force: :cascade do |t|
     t.string   "name"
@@ -531,6 +545,15 @@ ActiveRecord::Schema.define(version: 20150921130407) do
     t.datetime "updated_at"
   end
 
+  create_table "todo_groups", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "rec_min_age"
+    t.integer  "rec_max_age"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "todo_groups_todo_templates", id: false, force: :cascade do |t|
     t.integer "todo_group_id"
     t.integer "todo_template_id"
@@ -610,6 +633,9 @@ ActiveRecord::Schema.define(version: 20150921130407) do
     t.integer  "family_id"
     t.integer  "member_id"
     t.integer  "wizard_step",            default: 1
+    t.boolean  "is_account_current"
+    t.string   "stripe_customer_id"
+    t.date     "plan_expiration"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
@@ -620,4 +646,6 @@ ActiveRecord::Schema.define(version: 20150921130407) do
   add_foreign_key "applogs", "apps"
   add_foreign_key "applogs", "devices"
   add_foreign_key "applogs", "members"
+  add_foreign_key "invoices", "users"
+  add_foreign_key "payments", "invoices"
 end
