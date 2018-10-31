@@ -64,12 +64,40 @@ module Api
 
               @user = User.new(user_create_params)
               if @user.save
-                render :json => { :user => @user, token: @user.get_api_key.access_token, :messages => messages }, :status => 200
+                render :json => { user:      @user,
+                                  member:    @user.member,
+                                  family:    @user.family,
+                                  token:     @user.get_api_key.access_token,
+                                  :messages => messages }, :status => 200
               else
                 messages[:error] << @user.errors.full_messages
                 render :json => { :user => @user, :messages => messages }, :status => 400
               end
             end
+          end
+
+        rescue
+          messages[:error] << 'A server error occurred.'
+          render :json => { :messages => messages }, :status => 500
+        end
+
+      end
+
+      api :PUT, "/v1/users/:id", "Update a user account"
+      param :first_name, String, desc: 'The first name of the user', required: true
+      param :last_name, String, desc: 'The last name of the user', required: true
+      param :email, String, desc: 'The email address of the user', required: true
+      param :wizard_step, Integer, desc: 'The users current position in the setup wizard', required: false
+      def update
+        messages = init_messages
+        begin
+          @user = User.find(params[:id])
+          if @user.update_attributes(user_create_params)
+            render :json => { user:      @user,
+                              :messages => messages }, :status => 200
+          else
+            messages[:error] << @user.errors.full_messages
+            render :json => { :user => @user, :messages => messages }, :status => 400
           end
 
         rescue
@@ -101,7 +129,7 @@ module Api
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def user_create_params
-        params.require(:user).permit(:password, :password_confirmation, :first_name, :last_name, :email)
+        params.require(:user).permit(:password, :password_confirmation, :first_name, :last_name, :email, :wizard_step)
       end
 
     end
