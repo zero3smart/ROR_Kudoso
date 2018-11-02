@@ -31,13 +31,10 @@ class Family < ActiveRecord::Base
     summary
   end
 
-<<<<<<< HEAD
-=======
   def long_label
     "(#{self.id}) #{self.name}"
   end
 
->>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
   def self.memorialize_todos(for_date = Date.yesterday)
     for_date = for_date.end_of_day
     @families = self.includes(:members => {:todo_schedules => [:my_todos, :schedule_rrules]})
@@ -63,6 +60,7 @@ class Family < ActiveRecord::Base
       todo = self.todos.build({name: todo_template.name, description: todo_template.description, schedule: todo_template.schedule, todo_template_id: todo_template.id, kudos: todo_template.kudos})
       todo.active = true; #can't mass assign this
       todo.save
+      todo.create_step(steps: todo_template.steps)
       # add the todo to each family member
     end
 

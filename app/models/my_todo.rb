@@ -20,12 +20,9 @@ class MyTodo < ActiveRecord::Base
   end
 
   def as_json(options = {})
-<<<<<<< HEAD
-    super({ methods: :required? }.merge(options))
-=======
-    super({ methods: :required?, include: { todo_schedule: { include: :todo } } }.merge(options))
->>>>>>> 992a42491dc2ec4b996eb28aaa06b5466fdfeeaa
+    super({ methods: :required?, include: { todo_schedule: { include: { todo: { methods: :steps } } } } }.merge(options))
   end
+
   private
 
   def my_todo_schedule
