@@ -1,17 +1,10 @@
-class ActivityTemplateDeviceType < ActiveRecord::Base
+class ActivityDevice < ActiveRecord::Base
+  self.table_name = :activities_devices
+  belongs_to :activity
+  belongs_to :device
+  has_one :member, through: :activity
 
-  #########
-  #
-  # The purpose of this model is to associate an activity_template
-  # with a device_type so that it shows up as a potential activity when
-  # a child has this device.  This is especially useful for partner integrations
-  # where we want to launch a specific application on a device.
-  #
-  #########
-
-  belongs_to :activity_template
-  belongs_to :device_type
-
-  validates_presence_of :activity_template, :device_type
+  validates_presence_of :device, :activity
+  validates :device_id, uniqueness: { scope: :activity_id }
 
 end
