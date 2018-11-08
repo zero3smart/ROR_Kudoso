@@ -7,7 +7,7 @@
         </div>
     </section> -->
 
-    <section class="k-section uk-cover-background uk-position-relative" style="background-image: url({{image}}); background-size: cover; background-position: center;">
+    <section class="k-section uk-cover-background uk-position-relative" style="background-image: url({{image}}); background-size: cover; background-position: top;">
         <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle uk-contrast">
             <h1 class="uk-hidden">{{title}}</h1>
         </div>
@@ -18,6 +18,7 @@
             <article class="{{post_class}} uk-width-large-7-10  uk-width-medium-9-10 uk-width-small-1-1 uk-container-center uk-article">
                 <div class="k-article-body">
                     <h1>{{title}}</h1>
+                    <p>{{date published_at format="MMMM DD, YYYY"}}</p>
                     {{content}}
                     <br>
 
