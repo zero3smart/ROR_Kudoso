@@ -8,6 +8,7 @@ gem 'responders', '~> 2.0'
 gem 'railties'
 gem 'rest-client'
 gem 'settingslogic'
+gem 'rack-cors', :require => 'rack/cors'
 
 # View and Assets
 gem 'sprockets-rails', :require => 'sprockets/railtie'
@@ -55,6 +56,7 @@ gem 'chronic'
 gem 'recurring_select' # for schedules
 gem 'agilecrm-wrapper' #for AgileCRM
 gem 'stripe-rails'
+gem 'city-state'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
