@@ -77,6 +77,10 @@ $(document).ready ($) ->
   #switch from monthly to annual pricing tables
   bouncy_filter $('.cd-pricing-container')
 
+  setTimeout ()->
+    $('#ohanaCount').countTo({speed: 2500})
+  , 2000
+
   $('#payment-form').submit (event)->
     $form = $(this)
     # Disable the submit button to prevent repeated clicks
@@ -140,6 +144,32 @@ $(document).ready ($) ->
     # Prevent the form from submitting with the default action
     return false
 
+  $('.boolean').change (event)->
+    checked = $(this).is(':checked')
+    $('.boolean').not(this).prop('checked', !checked);
+
+  $('#new-contact').submit (event)->
+    event.preventDefault()
+    $form = $(this)
+    # Disable the submit button to prevent repeated clicks
+    $form.find('button').prop('disabled', true)
+    valid = true
+    email = $.trim($('#contact-email-adress').val());
+    if email.length > 5 && validateEmail(email)
+      $('#contact-email-adress').removeClass('uk-form-danger')
+    else
+      $('#contact-email-adress').addClass('uk-form-danger')
+      valid = false
+    $("form#new-contact input[type=\"text\"]").each ()->
+      input = $(this)
+      console.log 'Name: ' + input.attr('name')
+      if input.val().length < 2
+        input.addClass('uk-form-danger')
+        valid = false
+      else
+        input.removeClass('uk-form-danger')
+    alert('Valid: ' + valid)
+    return false # Prevent the form from submitting with the default action
 
 
 
@@ -184,6 +214,7 @@ stripeResponseHandler = (status, response)->
       success: ()->
         $('#payment-form').slideUp ()->
           $('#payment-form').html "<h2>Thank you!</h2><p>You are all set, we'll contact you as soon as Kudoso Ohana is ready!</p>"
+          $('#payment-form').slideDown
       ,
       error: (data)->
         alert "Sorry, there was an error processing your signup.  Please try again."
