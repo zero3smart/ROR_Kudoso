@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124211654) do
+ActiveRecord::Schema.define(version: 20151114173319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,46 @@ ActiveRecord::Schema.define(version: 20151124211654) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "alerter_messages", force: :cascade do |t|
+    t.string   "type"
+    t.string   "short_msg",            default: ""
+    t.text     "long_msg",             default: ""
+    t.boolean  "draft",                default: false
+    t.string   "notification_code"
+    t.integer  "notified_object_id"
+    t.string   "notified_object_type"
+    t.integer  "notification_type_id"
+    t.string   "attachment"
+    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                           null: false
+    t.boolean  "global",               default: false
+    t.datetime "expires"
+  end
+
+  create_table "alerter_notification_types", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "alerter_preferences", force: :cascade do |t|
+    t.integer "notification_type_id"
+    t.integer "notifiable_id"
+    t.string  "notifiable_type"
+    t.text    "alert_methods"
+  end
+
+  create_table "alerter_receipts", force: :cascade do |t|
+    t.integer  "receiver_id"
+    t.string   "receiver_type"
+    t.integer  "message_id",                               null: false
+    t.boolean  "is_read",                  default: false
+    t.boolean  "deleted",                  default: false
+    t.string   "mailbox_type",  limit: 25
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  add_index "alerter_receipts", ["message_id"], name: "index_alerter_receipts_on_message_id", using: :btree
 
   create_table "api_devices", force: :cascade do |t|
     t.string   "device_token"
@@ -344,23 +384,6 @@ ActiveRecord::Schema.define(version: 20151124211654) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
   end
-
-  create_table "fc_questionaires", force: :cascade do |t|
-    t.integer  "contact_id"
-    t.integer  "kids_2_6"
-    t.integer  "kids_7_12"
-    t.integer  "kids_13_18"
-    t.integer  "mobile_devices"
-    t.integer  "consumer_electronics"
-    t.integer  "computers"
-    t.string   "favorite_feature"
-    t.boolean  "prefer_buy"
-    t.text     "comments"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  add_index "fc_questionaires", ["contact_id"], name: "index_fc_questionaires_on_contact_id", using: :btree
 
   create_table "invoices", force: :cascade do |t|
     t.integer  "user_id"
@@ -696,12 +719,12 @@ ActiveRecord::Schema.define(version: 20151124211654) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
+  add_foreign_key "alerter_receipts", "alerter_messages", column: "message_id", name: "receipts_on_message_id"
   add_foreign_key "applogs", "apps"
   add_foreign_key "applogs", "devices"
   add_foreign_key "applogs", "members"
   add_foreign_key "family_activity_preferences", "activity_templates"
   add_foreign_key "family_activity_preferences", "families"
-  add_foreign_key "fc_questionaires", "contacts"
   add_foreign_key "invoices", "users"
   add_foreign_key "ledger_entries", "members"
   add_foreign_key "payments", "invoices"
