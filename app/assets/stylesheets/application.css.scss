@@ -1,3 +1,5 @@
+@import "recurring_select";
+
 // Mixins
 @mixin base-fontstack {
   font-family: proxima-nova, "Helvetica Neue", verdana, sans-serif;
@@ -13,7 +15,6 @@ $night-sky: #0B315F;
 $apricot: #FDB941;
 $orange: #F76F20;
 $eggshell: #eee;
-
 
 // Base Styles
 * {
@@ -280,6 +281,27 @@ section.k-info figure {
   opacity: 0.9;
 }
 
+//
+.k-ohana.k-intro {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  padding-top: 7%;
+  padding-bottom: 7%;
+  background-image: asset-url("ohana.jpg");
+}
+
+.k-ohana.k-intro header {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 2em;
+  border-radius: 10px;
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.k-ohana.k-intro header p {
+  opacity: 0.9;
+}
+
 .k-home .k-hero {
   background-size: cover;
   background-repeat: no-repeat;
@@ -465,6 +487,11 @@ main>section.k-fundamentals .k-teach {
   line-height: 1.5rem;
 }
 
+.k-large-text {
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+}
+
 .k-video-button {
   background: none;
   border: 2px solid white;
@@ -477,6 +504,46 @@ main>section.k-fundamentals .k-teach {
     background: white !important;
     color: black;
   }
+}
+
+.k-rotate {
+  // FF3.5+
+  -moz-transform: rotate(-90.0deg);
+  // Opera 10.5
+  -o-transform: rotate(-90.0deg);
+  // Saf3.1+, Chrome
+  -webkit-transform: rotate(-90.0deg);
+  // IE6,IE7
+  //filter: progid: DXImageTransform.Microsoft.BasicImage(rotation=0.083);
+  // IE8
+  //-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)";
+  // Standard
+  transform: rotate(-90.0deg);
+}
+
+td.k-rotated {
+  vertical-align: middle;
+  font-size: 200%;
+}
+
+.k-screen-time-table {
+  font-size: 1rem;
+}
+
+.rangeSelector {
+  height: 400px;
+  background-color: #cccccc;
+  position: relative;
+}
+
+.choice {
+  cursor: pointer;
+}
+
+.k-admin-container {
+  width: 90%;
+  padding: 20px;
+  background-color: #fff;
 }
 
 // Phone Portrait
