@@ -1,4 +1,7 @@
 class ScreenTime < ActiveRecord::Base
+
+  class NoTimeRemaining < StandardError; end
+
   belongs_to :member
 
   validates_presence_of :member_id, :max_time, :default_time
@@ -21,7 +24,13 @@ class ScreenTime < ActiveRecord::Base
   private
 
   def check_time
-    self.errors.add(:max_time, 'must be greater than or equal to default time.') if self.max_time < self.default_time
+    if self.max_time.nil? or self.default_time.nil?
+      self.errors.add(:max_time, 'must be set') if self.max_time.nil?
+      self.errors.add(:default_time, 'must be set') if self.default_time.nil?
+    else
+      self.errors.add(:max_time, 'must be greater than or equal to default time.') if self.max_time < self.default_time
+    end
+
   end
 
   def check_restrictions
