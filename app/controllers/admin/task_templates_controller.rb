@@ -1,4 +1,4 @@
-class Admin::TaskTemplatesController < AdminController
+class TaskTemplatesController < ApplicationController
   load_and_authorize_resource
 
   respond_to :html
@@ -25,7 +25,7 @@ class Admin::TaskTemplatesController < AdminController
 
     respond_to do |format|
       if @task_template.save
-        format.html { redirect_to admin_task_templates_path, notice: 'Task Template was successfully created.' }
+        format.html { redirect_to task_templates_path, notice: 'Task Template was successfully created.' }
         format.json { render :show, status: :created, location: @task_template }
       else
         format.html { render :new }
@@ -37,7 +37,7 @@ class Admin::TaskTemplatesController < AdminController
   def update
     respond_to do |format|
       if @task_template.update(task_template_params)
-        format.html { redirect_to admin_task_templates_path, notice: 'Task Template was successfully updated.' }
+        format.html { redirect_to task_templates_path, notice: 'Task Template was successfully updated.' }
         format.json { render :show, status: :created, location: @task_template }
       else
         format.html { render :edit }
@@ -48,13 +48,14 @@ class Admin::TaskTemplatesController < AdminController
 
   def destroy
     @task_template.destroy
-    redirect_to admin_task_templates_path, notice: 'Task Template was successfully destroyed.'
+    #respond_with(@task_template)
+    redirect_to task_templates_path
   end
 
   private
 
 
     def task_template_params
-      params.require(:task_template).permit(:name, :description, :rule, :active, :kudos, :required)
+      params.require(:task_template).permit(:name, :description, :rule, :active, :kudos, :required, step_attributes: [ :steps ] )
     end
 end
