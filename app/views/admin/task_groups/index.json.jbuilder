@@ -1,4 +1,4 @@
-json.array!(@task_groups) do |task_group|
-  json.extract! task_group, :id, :name, :rec_min_age, :rec_max_age, :active
-  json.url task_group_url(task_group, format: :json)
+json.array!(@tasks) do |task|
+  json.extract! task, :id, :name, :description, :required, :kudos, :task_template_id, :family_id, :active, :schedule
+  json.url task_url(task, format: :json)
 end

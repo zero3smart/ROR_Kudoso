@@ -1,1 +1,1 @@
-json.extract! @task_group, :id, :name, :rec_min_age, :rec_max_age, :active, :created_at, :updated_at
+json.extract! @task, :id, :name, :description, :required, :kudos, :task_template_id, :family_id, :active, :schedule, :created_at, :updated_at
