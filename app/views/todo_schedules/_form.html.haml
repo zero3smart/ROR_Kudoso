@@ -1,20 +1,20 @@
-= simple_form_for [@family, @todo, @todo_schedule], html: { class: 'uk-form uk-form-stacked' }, wrapper: :uikit_form_stacked do |f|
-  - if @todo_schedule.errors.any?
+= simple_form_for [@family, @task, @task_schedule], html: { class: 'uk-form uk-form-stacked' }, wrapper: :uikit_form_stacked do |f|
+  - if @task_schedule.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@todo_schedule.errors.count, "error")} prohibited this todo_schedule from being saved:"
+      %h2= "#{pluralize(@task_schedule.errors.count, "error")} prohibited this task_schedule from being saved:"
       %ul
-        - @todo_schedule.errors.full_messages.each do |msg|
+        - @task_schedule.errors.full_messages.each do |msg|
           %li= msg
   = f.hidden_field :member_id
-  = f.input 'member_name', as: :fake, input_html: { value: @todo_schedule.member.full_name }, disabled: true
-  = f.input 'todo_name', as: :fake, input_html: { value: @todo.name }, disabled: true
-  = f.hidden_field :todo_id
+  = f.input 'member_name', as: :fake, input_html: { value: @task_schedule.member.full_name }, disabled: true
+  = f.input 'task_name', as: :fake, input_html: { value: @task.name }, disabled: true
+  = f.hidden_field :task_id
   = f.input :kudos, disabled: true
   .row
     .col-xs-6.col-xs-offset-3
-      %small Edit the Family ToDo to change kudos
+      %small Edit the Family Task to change kudos
   = f.input :start_date, as: :datepicker, disabled: true
-  = f.input :end_date, as: :datepicker, disabled: !( @todo_schedule.end_date.blank? || @todo_schedule.end_date > Date.today )
+  = f.input :end_date, as: :datepicker, disabled: !( @task_schedule.end_date.blank? || @task_schedule.end_date > Date.today )
   .uk-form-row
     = f.input :active, as: :boolean, wrapper: :uikit_checkbox
   .uk-form-row
