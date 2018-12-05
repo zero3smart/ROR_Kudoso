@@ -1,33 +1,33 @@
-%h1 Listing my_tasks
+%h1 Listing tasks
 
 %table
   %tr
-    %th Task schedule
-    %th Member
-    %th Due date
-    %th Due time
-    %th Complete
-    %th Verify
-    %th Verified at
-    %th Verified by
+    %th Name
+    %th Description
+    %th Required
+    %th Kudos
+    %th Task template
+    %th Family
+    %th Active
+    %th Schedule
     %th
     %th
     %th
 
-  - @my_tasks.each do |my_task|
+  - @tasks.each do |task|
     %tr
-      %td= my_task.task_schedule_id
-      %td= my_task.member_id
-      %td= my_task.due_date
-      %td= my_task.due_time
-      %td= my_task.complete
-      %td= my_task.verify
-      %td= my_task.verified_at
-      %td= my_task.verified_by
-      %td= link_to 'Show', my_task
-      %td= link_to 'Edit', edit_my_task_path(my_task)
-      %td= link_to 'Destroy', my_task, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= task.name
+      %td= task.description
+      %td= task.required
+      %td= task.kudos
+      %td= task.task_template_id
+      %td= task.family_id
+      %td= task.active
+      %td= task.schedule
+      %td= link_to 'Show', task
+      %td= link_to 'Edit', edit_task_path(task)
+      %td= link_to 'Destroy', task, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New My task', new_my_task_path
+= link_to 'New Task', new_task_path
